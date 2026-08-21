@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ôn Thi Tiếng Anh Vào Lớp 6 - Luyện Tập Trắc Nghiệm Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Thư viện tạo file PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --primary-grad: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+      --bg-grad: linear-gradient(135deg, #F0F4FF 0%, #F5F3FF 50%, #FFF1F2 100%);
+      --card-bg: #FFFFFF;
+      --text-main: #1E1B4B;
+      --text-muted: #64748B;
+      --primary: #4F46E5;
+      --success: #10B981;
+      --success-bg: #ECFDF5;
+      --error: #EF4444;
+      --error-bg: #FEF2F2;
+      --border-color: #E2E8F0;
+      --shadow-md: 0 10px 25px -5px rgba(79, 70, 229, 0.15);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      background: var(--bg-grad);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px 14px;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 3px solid #EEF2FF;
+      position: relative;
+    }
+
+    .app-header {
+      background: var(--primary-grad);
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .app-title h1 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-title p {
+      font-size: 0.85rem;
+      opacity: 0.95;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-badge {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .dropdown-select {
+      background: white;
+      color: var(--text-main);
+      border: 2px solid #C7D2FE;
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+      max-width: 180px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: #E2E8F0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10B981, #06B6D4);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .main-body {
+      padding: 28px 24px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .start-card {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .mascot-icon {
+      font-size: 4rem;
+      margin-bottom: 12px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .start-card h2 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #4F46E5;
+      margin-bottom: 8px;
+    }
+
+    .start-card p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .input-field {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 20px auto;
+      text-align: left;
+    }
+
+    .input-field label {
+      display: block;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .input-field input, .input-field select {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: 2.5px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .input-field input:focus, .input-field select:focus {
+      border-color: #4F46E5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--primary-grad);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: #EEF2FF;
+      color: #4F46E5;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      border: 1px solid #C7D2FE;
+    }
+
+    .question-header {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .options-list {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border: 2.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #FFFFFF;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-item:hover {
+      border-color: #818CF8;
+      background: #F5F3FF;
+      transform: translateX(4px);
+    }
+
+    .option-item.selected {
+      border-color: #4F46E5;
+      background: #EEF2FF;
+    }
+
+    .option-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #E0E7FF;
+      color: #4338CA;
+      border-radius: 8px;
+      margin-right: 12px;
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .theory-card {
+      background: #F8FAFC;
+      border: 2px dashed #CBD5E1;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .theory-card-title {
+      font-weight: 800;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn-secondary {
+      padding: 12px 20px;
+      background: #F1F5F9;
+      color: #475569;
+      border: 2px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+      animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 24px;
+      background: white;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content.success-modal {
+      border-top: 8px solid var(--success);
+    }
+
+    .modal-content.error-modal {
+      border-top: 8px solid var(--error);
+    }
+
+    .modal-icon {
+      font-size: 3.5rem;
+      margin-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .modal-desc {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      text-align: left;
+      background: #F8FAFC;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .report-card {
+      padding: 10px 0;
+    }
+
+    .report-hero {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .report-hero h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #4F46E5;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: #F8FAFC;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px 8px;
+      text-align: center;
+    }
+
+    .stat-box.highlight-1 {
+      border-color: #C7D2FE;
+      background: #EEF2FF;
+      color: #4338CA;
+    }
+
+    .stat-box.highlight-2 {
+      border-color: #A7F3D0;
+      background: #ECFDF5;
+      color: #065F46;
+    }
+
+    .stat-box.highlight-3 {
+      border-color: #FECDD3;
+      background: #FFF1F2;
+      color: #9F1239;
+    }
+
+    .stat-val {
+      font-size: 1.7rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .stat-lbl {
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1.5px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th {
+      background: #F1F5F9;
+      color: #334155;
+      font-weight: 800;
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    .tag-wrong {
+      color: var(--error);
+      font-weight: 700;
+      background: #FEF2F2;
+      padding: 2px 6px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .tag-correct {
+      color: var(--success);
+      font-weight: 700;
+      background: #ECFDF5;
+      padding: 2px 6px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .sync-status {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+    }
+
+    /* In PDF optimization to fit 1 A4 page */
+    @media print {
+      .app-container { border: none !important; box-shadow: none !important; max-width: 100% !important; }
+      .report-card { padding: 0 !important; }
+      .report-hero { margin-bottom: 5px !important; }
+      .report-hero h2 { font-size: 1.3rem !important; margin: 0 !important; }
+      .report-hero p { margin: 2px 0 !important; font-size: 0.8rem !important; }
+      .stat-grid { margin-bottom: 10px !important; gap: 5px !important; display: flex !important; justify-content: space-between !important; }
+      .stat-box { padding: 5px !important; flex: 1 !important; border: 1px solid #ccc !important; background: transparent !important; }
+      .stat-val { font-size: 1.1rem !important; margin-bottom: 0 !important; color: #000 !important; }
+      .stat-lbl { font-size: 0.65rem !important; color: #000 !important; }
+      h3 { font-size: 1rem !important; margin-bottom: 5px !important; color: #000 !important; }
+      .table-container { margin-bottom: 5px !important; border: 1px solid #000; border-radius: 0; }
+      table { font-size: 0.7rem !important; line-height: 1.2 !important; }
+      th, td { padding: 4px 6px !important; border-bottom: 1px solid #ccc !important; }
+      th { background: #eee !important; color: #000 !important; }
+      .tag-wrong, .tag-correct { padding: 0 !important; background: none !important; border-radius: 0 !important; display: inline !important; font-weight: bold !important; }
+      .tag-wrong { color: #EF4444 !important; }
+      .tag-correct { color: #10B981 !important; }
+      tr:nth-child(even) { background: transparent !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+
+    @media (max-width: 600px) {
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+      .app-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .nav-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="app-title">
+      <h1>🎓 Luyện Thi Tiếng Anh Vào 6</h1>
+      <p id="studentDisplay">Chào mừng bạn đến với hệ thống ôn luyện!</p>
+    </div>
+    <div class="nav-controls" id="headerNav" style="display: none;">
+      <div class="progress-badge" id="progressBadge">Tiến độ: 0/25</div>
+      <select class="dropdown-select" id="questionDropdown" onchange="jumpToQuestion(this.value)">
+      </select>
+    </div>
+  </header>
+
+  <div class="progress-bar-container" id="progressBarWrapper" style="display: none;">
+    <div class="progress-bar-fill" id="progressBarFill"></div>
+  </div>
+
+  <div class="main-body">
+    <div id="screen-start" class="screen active">
+      <div class="start-card">
+        <div class="mascot-icon">📚</div>
+        <h2>Bắt Đầu Bài Thi Ôn Luyện</h2>
+        <p>Kho dữ liệu: <strong>250 Câu Hỏi</strong> ôn tập toàn diện</p>
+        <div class="input-field">
+          <label for="studentNameInput">Họ và Tên Học Sinh:</label>
+          <input type="text" id="studentNameInput" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off">
+        </div>
+        
+        <!-- Menu Lựa Chọn Bộ Đề -->
+        <div class="input-field">
+          <label for="testSelector">Chọn Bộ Đề Cần Làm:</label>
+          <select id="testSelector">
+            <option value="test1">📝 Đề Thi Số 1 (25 Câu)</option>
+            <option value="test2">📝 Đề Thi Số 2 (25 Câu)</option>
+            <option value="test3">📝 Đề Thi Số 3 (25 Câu)</option>
+            <option value="test4">📝 Đề Thi Số 4 (25 Câu)</option>
+            <option value="test5">📝 Đề Thi Số 5 (25 Câu)</option>
+            <option value="test6">📝 Đề Thi Số 6 (25 Câu)</option>
+            <option value="test7">📝 Đề Thi Số 7 (25 Câu)</option>
+            <option value="test8">📝 Đề Thi Số 8 (25 Câu)</option>
+            <option value="test9">📝 Đề Thi Số 9 (25 Câu)</option>
+            <option value="test10">📝 Đề Thi Số 10 (25 Câu)</option>
+            <option value="random">🎲 Đề Kiểm Tra Ngẫu Nhiên (25 Câu)</option>
+            <option value="all">🔥 Thử Thách Cực Đại: Toàn bộ 250 Câu</option>
+          </select>
+        </div>
+
+        <button class="btn-main" onclick="startApp()">
+          Vào Làm Bài Ngay ⚡
+        </button>
+      </div>
+    </div>
+
+    <div id="screen-quiz" class="screen">
+      <div class="section-badge" id="exerciseBadge">Đề thi</div>
+      <div class="question-header" id="questionTitle">Câu hỏi...</div>
+
+      <!-- Khu vực phương án trắc nghiệm -->
+      <div id="interactionArea"></div>
+
+      <!-- Khung Lý Thuyết & Hướng Dẫn (Không lộ đáp án) -->
+      <div class="theory-card">
+        <div class="theory-card-title">
+          <span>💡 Lý thuyết & Hướng làm bài:</span>
+        </div>
+        <div id="theoryContent">...</div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="quiz-actions">
+        <button class="btn-secondary" id="btnPrev" onclick="navigatePrev()">⬅ Câu trước</button>
+        <button class="btn-main" id="btnCheck" onclick="checkCurrentAnswer()">Kiểm tra đáp án ✨</button>
+        <button class="btn-main" id="btnFinish" style="display: none; background: linear-gradient(135deg, #10B981, #059669);" onclick="showReportScreen()">Xem Báo Cáo 📊</button>
+      </div>
+    </div>
+
+    <div id="screen-report" class="screen">
+      <div class="report-card" id="pdfReportContent">
+        <div class="report-hero">
+          <div style="font-size: 3.5rem; margin-bottom: 8px;">🏆</div>
+          <h2 id="reportStudentName">Báo Cáo Kết Quả Làm Bài</h2>
+          <p style="color: var(--text-muted); font-weight: 700; margin-top: 4px;" id="reportTimestamp">Thời gian hoàn thành: --/--/----</p>
+          <div id="syncMsg" class="sync-status"></div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box highlight-1">
+            <div class="stat-val" id="statTotal">25</div>
+            <div class="stat-lbl">Tổng số câu đã làm</div>
+          </div>
+          <div class="stat-box highlight-2">
+            <div class="stat-val" id="statFirstCorrect">0</div>
+            <div class="stat-lbl">Đúng ngay lần đầu</div>
+          </div>
+          <div class="stat-box highlight-3">
+            <div class="stat-val" id="statNeedReview">0</div>
+            <div class="stat-lbl">Cần xem lại (sai ≥1 lần)</div>
+          </div>
+        </div>
+
+        <h3 style="font-weight: 900; margin-bottom: 12px; color: var(--text-main);">📋 Bảng đối chiếu chi tiết bài làm:</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 8%;">STT</th>
+                <th style="width: 50%;">Câu hỏi</th>
+                <th style="width: 30%;">Đáp án đã chọn</th>
+                <th style="width: 12%;">Kết quả</th>
+              </tr>
+            </thead>
+            <tbody id="reportBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="report-btn-group" style="display: flex; gap: 12px; margin-top: 20px;">
+        <button class="btn-main btn-pdf" style="flex: 1;" onclick="exportToPDF()">📄 Xuất Báo Cáo PDF</button>
+        <button class="btn-main" style="flex: 1;" onclick="restartApp()">🔄 Làm Lại Từ Đầu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="successModal">
+  <div class="modal-content success-modal">
+    <div class="modal-icon">🎉</div>
+    <div class="modal-title" style="color: var(--success);">Chính Xác! Tuyệt Vời!</div>
+    <div class="modal-desc" id="successDesc">Giải thích đúng...</div>
+    <button class="btn-main" style="background: var(--success); width: 100%;" onclick="closeSuccessAndProceed()">
+      Tiếp tục câu tiếp theo ➡
+    </button>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="errorModal">
+  <div class="modal-content error-modal">
+    <div class="modal-icon">⚠️</div>
+    <div class="modal-title" style="color: var(--error);">Chưa Chính Xác Rồi!</div>
+    <div class="modal-desc" id="errorDesc">Phân tích lỗi sai...</div>
+    <button class="btn-main" style="background: var(--error); width: 100%;" onclick="closeErrorAndRetry()">
+      Thử lại ngay nào 🔁
+    </button>
+  </div>
+</div>
+
+<!-- =========================================================================
+     MÃ NGUỒN XỬ LÝ JAVASCRIPT
+     ========================================================================= -->
+<script>
+/* =========================================================================
+   CẤU HÌNH LIÊN KẾT GOOGLE APPS SCRIPT:
+   Hãy xóa chữ "DÁN_URL_CỦA_BẠN_VÀO_ĐÂY" và thay bằng URL của bạn (giữ lại dấu ngoặc kép).
+   ========================================================================= */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp5X1GVzpJqOmfDRXe4QjbJvv-yRr_mSWq1du25bRJA6xLpQ9Ipdt9KKmYYRJc3fxx/exec";
+
+const baseQuestions = [
+  {
+    id: 1, section: "Pronunciation",
+    text: "1. Choose the word whose underlined part is pronounced differently: pens, books, rulers, pencils.",
+    type: "mcq", options: ["A. pens /z/", "B. books /s/", "C. rulers /z/", "D. pencils /z/"],
+    answer: "B. books /s/", cleanAnswer: "books",
+    theory: "Quy tắc phát âm đuôi '-s/-es': Phát âm là /s/ khi đứng sau âm vô thanh, các trường hợp khác phát âm /z/ hoặc /iz/.",
+    whyWrong: "Phải chú ý âm cuối của từ gốc trước khi thêm 's'. Chỉ có 'book' tận cùng bằng âm vô thanh /k/.",
+    whyRight: "Chính xác! 'books' kết thúc bằng âm /k/ nên đuôi 's' phát âm là /s/."
+  },
+  {
+    id: 2, section: "Pronunciation",
+    text: "2. Choose the word whose underlined part is pronounced differently: meat, seat, teach, wear.",
+    type: "mcq", options: ["A. meat /i:/", "B. seat /i:/", "C. teach /i:/", "D. wear /eə/"],
+    answer: "D. wear /eə/", cleanAnswer: "wear",
+    theory: "Phát âm nguyên âm đôi 'ea': Thường đọc là /i:/, nhưng có trường hợp ngoại lệ đọc là /eə/.",
+    whyWrong: "Chữ 'ea' trong từ chỉ trang phục ('wear') đọc là /eə/, khác với âm /i:/ của các từ còn lại.",
+    whyRight: "Chính xác! 'wear' có phần gạch chân phát âm là /eə/."
+  },
+  {
+    id: 3, section: "Pronunciation",
+    text: "3. Choose the word whose underlined part is pronounced differently: wanted, watched, needed, visited.",
+    type: "mcq", options: ["A. wanted /ɪd/", "B. watched /t/", "C. needed /ɪd/", "D. visited /ɪd/"],
+    answer: "B. watched /t/", cleanAnswer: "watched",
+    theory: "Quy tắc phát âm đuôi '-ed': Đọc là /ɪd/ sau t/d. Đọc là /t/ sau ch, s, x, sh, k, p, f.",
+    whyWrong: "Từ 'watch' kết thúc bằng âm /tʃ/ nên đuôi '-ed' phải đọc là /t/.",
+    whyRight: "Xuất sắc! 'watched' phát âm đuôi -ed là /t/."
+  },
+  {
+    id: 4, section: "Pronunciation",
+    text: "4. Choose the word whose underlined part is pronounced differently: thing, father, the, these.",
+    type: "mcq", options: ["A. thing /θ/", "B. father /ð/", "C. the /ð/", "D. these /ð/"],
+    answer: "A. thing /θ/", cleanAnswer: "thing",
+    theory: "Phân biệt âm 'th' vô thanh /θ/ và 'th' hữu thanh /ð/.",
+    whyWrong: "Chữ 'th' trong từ chỉ vật ('thing') là âm vô thanh /θ/, ba từ còn lại là hữu thanh /ð/.",
+    whyRight: "Đúng rồi! 'thing' phát âm là /θ/."
+  },
+  {
+    id: 5, section: "Odd One Out",
+    text: "5. Find the word which is not the same as the others in a group: worker, doctor, job, farmer.",
+    type: "mcq", options: ["A. worker", "B. doctor", "C. job", "D. farmer"],
+    answer: "C. job", cleanAnswer: "job",
+    theory: "Phân biệt từ loại: Danh từ chỉ người làm nghề cụ thể vs. Danh từ chung chỉ công việc.",
+    whyWrong: "3 từ đầu đều là từ chỉ người làm một nghề cụ thể, từ còn lại chỉ danh từ chung.",
+    whyRight: "Rất tốt! 'job' là danh từ chỉ chung công việc."
+  },
+  {
+    id: 6, section: "Grammar & Vocabulary",
+    text: "6. The bakery is _____________ of the pharmacy.",
+    type: "mcq", options: ["A. between", "B. to the left", "C. near to", "D. in front"],
+    answer: "B. to the left", cleanAnswer: "to the left",
+    theory: "Cụm từ chỉ vị trí phương hướng cần đi kèm với giới từ 'of' ở phía sau.",
+    whyWrong: "Các giới từ 'between', 'near' không đi liền với 'of'. Chỉ có cụm 'to the left of' là đúng cấu trúc.",
+    whyRight: "Chính xác! 'to the left of' nghĩa là ở bên trái của."
+  },
+  {
+    id: 7, section: "Grammar & Vocabulary",
+    text: "7. ______________ can I get there? - By train.",
+    type: "mcq", options: ["A. Where", "B. Who", "C. How", "D. How often"],
+    answer: "C. How", cleanAnswer: "How",
+    theory: "Câu trả lời là phương tiện giao thông ('By train') -> Cần từ hỏi về cách thức/phương tiện.",
+    whyWrong: "Hỏi về phương tiện đi lại bắt buộc dùng từ 'How'.",
+    whyRight: "Đúng rồi! Hỏi phương tiện dùng 'How'."
+  },
+  {
+    id: 8, section: "Grammar & Vocabulary",
+    text: "8. My brother often __________ TV after dinner.",
+    type: "mcq", options: ["A. watch", "B. watches", "C. watchs", "D. are watching"],
+    answer: "B. watches", cleanAnswer: "watches",
+    theory: "Thì Hiện tại đơn với trạng từ tần suất 'often': Chủ ngữ ngôi thứ 3 số ít ('My brother'). Động từ tận cùng bằng 'ch'.",
+    whyWrong: "Động từ 'watch' kết thúc bằng 'ch' nên khi đi với chủ ngữ số ít phải thêm '-es', không phải '-s'.",
+    whyRight: "Đúng! 'My brother' + 'watches'."
+  },
+  {
+    id: 9, section: "Grammar & Vocabulary",
+    text: "9. “What ___________ going to Hanoi tomorrow?”",
+    type: "mcq", options: ["A. at", "B. to", "C. about", "D. into"],
+    answer: "C. about", cleanAnswer: "about",
+    theory: "Cấu trúc đưa ra lời đề nghị/rủ rê: 'What about + V-ing?'",
+    whyWrong: "Từ để hỏi 'What' kết hợp với 'about' tạo thành câu đề nghị đi làm việc gì đó.",
+    whyRight: "Chính xác! 'What about going...?'"
+  },
+  {
+    id: 10, section: "Grammar & Vocabulary",
+    text: "10. Why don't we _____________ chess together?",
+    type: "mcq", options: ["A. play", "B. playing", "C. to play", "D. played"],
+    answer: "A. play", cleanAnswer: "play",
+    theory: "Cấu trúc lời rủ/đề nghị: 'Why don't we + V (nguyên mẫu)...?'",
+    whyWrong: "Sau cụm từ rủ rê 'Why don't we...' phải dùng động từ nguyên mẫu không 'to'.",
+    whyRight: "Đúng rồi! 'Why don't we' đi với động từ nguyên mẫu 'play'."
+  },
+  {
+    id: 11, section: "Grammar & Vocabulary",
+    text: "11. __________ summer, I often go swimming.",
+    type: "mcq", options: ["A. Of", "B. On", "C. In", "D. At"],
+    answer: "C. In", cleanAnswer: "In",
+    theory: "Giới từ chỉ thời gian đi với các mùa trong năm.",
+    whyWrong: "Trước các mùa trong năm ta phải sử dụng giới từ 'In'.",
+    whyRight: "Chính xác! Giới từ đi với mùa là 'In'."
+  },
+  {
+    id: 12, section: "Grammar & Vocabulary",
+    text: "12. “- Does Tom like __________ badminton? – No. He likes tennis.”",
+    type: "mcq", options: ["A. play", "B. to playing", "C. plays", "D. playing"],
+    answer: "D. playing", cleanAnswer: "playing",
+    theory: "Cấu trúc động từ chỉ sở thích lâu dài 'like'.",
+    whyWrong: "Sau động từ 'like' thể hiện sở thích thường xuyên ta dùng hình thức danh động từ V-ing.",
+    whyRight: "Tuyệt vời! 'like playing'."
+  },
+  {
+    id: 13, section: "Grammar & Vocabulary",
+    text: "13. “- Would you like __________ coffee? – Yes, please.”",
+    type: "mcq", options: ["A. any", "B. some", "C. a", "D. an"],
+    answer: "B. some", cleanAnswer: "some",
+    theory: "Dùng từ định lượng trong câu mời mọc/đề nghị lịch sự.",
+    whyWrong: "Dù là câu hỏi nhưng đây là lời mời lịch sự nên ta dùng 'some' chứ không dùng 'any'.",
+    whyRight: "Rất đúng! Lời mời dùng 'Would you like some...?'"
+  },
+  {
+    id: 14, section: "Grammar & Vocabulary",
+    text: "14. Mary and Tom __________ their homework now.",
+    type: "mcq", options: ["A. is doing", "B. do", "C. does", "D. are doing"],
+    answer: "D. are doing", cleanAnswer: "are doing",
+    theory: "Thì Hiện tại tiếp diễn với dấu hiệu nhận biết 'now'. Chủ ngữ số nhiều.",
+    whyWrong: "Dấu hiệu 'now' chỉ hành động đang diễn ra và chủ ngữ gồm 2 người ('Mary and Tom') là số nhiều nên chọn tobe 'are'.",
+    whyRight: "Chính xác! Chủ ngữ số nhiều đi với 'are doing'."
+  },
+  {
+    id: 15, section: "Grammar & Vocabulary",
+    text: "15. “ - __________?“ – “He is kind and handsome.”",
+    type: "mcq", options: ["A. How is your neighbor?", "B. What does your neighbor like?", "C. How old is your neighbor?", "D. What is your neighbor like?"],
+    answer: "D. What is your neighbor like?", cleanAnswer: "What is your neighbor like?",
+    theory: "Hỏi về tính cách/ngoại hình của ai đó.",
+    whyWrong: "Câu trả lời miêu tả tính cách nên phải dùng câu hỏi cấu trúc 'What is S like?'.",
+    whyRight: "Chính xác! Hỏi tính cách/vẻ ngoài dùng 'What is S like?'."
+  },
+  {
+    id: 16, section: "Grammar & Vocabulary",
+    text: "16. They often go to school _____________ foot.",
+    type: "mcq", options: ["A. in", "B. on", "C. by", "D. to"],
+    answer: "B. on", cleanAnswer: "on",
+    theory: "Cụm từ cố định chỉ việc đi bộ: 'on foot' (đi bộ).",
+    whyWrong: "Đi bộ luôn đi với giới từ 'on' ('on foot'), không dùng 'by'.",
+    whyRight: "Đúng rồi! Đi bộ là 'on foot'."
+  },
+  {
+    id: 17, section: "Grammar & Vocabulary",
+    text: "17. Last night I _____________ a lot of food, so I felt unwell.",
+    type: "mcq", options: ["A. ate", "B. eaten", "C. eat", "D. eats"],
+    answer: "A. ate", cleanAnswer: "ate",
+    theory: "Thì Quá khứ đơn với dấu hiệu thời gian trong quá khứ 'Last night'.",
+    whyWrong: "Có mốc thời gian quá khứ 'Last night' nên động từ 'eat' phải đổi thành dạng quá khứ cột 2 'ate'.",
+    whyRight: "Chính xác! Dạng quá khứ của 'eat' là 'ate'."
+  },
+  {
+    id: 18, section: "Grammar & Vocabulary",
+    text: "18. We _____________ dinner at present.",
+    type: "mcq", options: ["A. is having", "B. are having", "C. eat", "D. eats"],
+    answer: "B. are having", cleanAnswer: "are having",
+    theory: "Thì Hiện tại tiếp diễn với trạng từ chỉ thời gian 'at present'.",
+    whyWrong: "Trạng ngữ 'at present' yêu cầu dùng thì hiện tại tiếp diễn, chủ ngữ 'We' đi với tobe 'are'.",
+    whyRight: "Rất chuẩn! 'We' + 'are having'."
+  },
+  {
+    id: 19, section: "Grammar & Vocabulary",
+    text: "19. Nam would like _____________ a doctor when he grows up.",
+    type: "mcq", options: ["A. become", "B. to become", "C. be", "D. is"],
+    answer: "B. to become", cleanAnswer: "to become",
+    theory: "Cấu trúc thể hiện mong muốn: 'would like + to V' (muốn làm gì).",
+    whyWrong: "Sau cụm động từ 'would like' bắt buộc phải dùng động từ dạng nguyên mẫu có 'to' (to V).",
+    whyRight: "Chính xác! 'would like to become'."
+  },
+  {
+    id: 20, section: "Grammar & Vocabulary",
+    text: "20. Don’t play with a knife _____________ it is dangerous.",
+    type: "mcq", options: ["A. when", "B. because", "C. so", "D. that"],
+    answer: "B. because", cleanAnswer: "because",
+    theory: "Liên từ chỉ nguyên nhân.",
+    whyWrong: "Mệnh đề phía sau giải thích lý do nguy hiểm nên phải chọn liên từ chỉ nguyên nhân 'because'.",
+    whyRight: "Đúng rồi! Chỉ nguyên nhân dùng 'because'."
+  },
+  {
+    id: 21, section: "Grammar & Vocabulary",
+    text: "21. Going by plane is __________ than going by coach.",
+    type: "mcq", options: ["A. fast", "B. fastest", "C. more fastly", "D. faster"],
+    answer: "D. faster", cleanAnswer: "faster",
+    theory: "So sánh hơn của tính từ ngắn 1 âm tiết có liên từ 'than'.",
+    whyWrong: "'fast' là tính từ ngắn 1 âm tiết, dạng so sánh hơn là thêm đuôi '-er' thành 'faster'.",
+    whyRight: "Tuyệt vời! 'fast' ngắn -> 'faster'."
+  },
+  {
+    id: 22, section: "Error Correction",
+    text: "22. Identify the mistake: She (A) goes to (B) the library three time (C) a week (D).",
+    type: "mcq", options: ["A. goes to", "B. the library", "C. three time", "D. a week"],
+    answer: "C. three time", cleanAnswer: "three time",
+    theory: "Trạng từ chỉ tần suất số lần: Từ 3 lần trở lên phải dùng danh từ đếm được số nhiều.",
+    whyWrong: "Từ chỉ số lần từ 2 trở lên là danh từ đếm được số nhiều nên 'time' phải thêm 's' thành 'three times'.",
+    whyRight: "Đúng! Lỗi ở 'three time' (sửa thành 'three times')."
+  },
+  {
+    id: 23, section: "Grammar & Vocabulary",
+    text: "23. I think Da Nang city is__________ than Hue City.",
+    type: "mcq", options: ["A. exciting", "B. more exciting", "C. excited", "D. more excited"],
+    answer: "B. more exciting", cleanAnswer: "more exciting",
+    theory: "So sánh hơn tính từ dài chỉ tính chất vật/nơi chốn có 'than'.",
+    whyWrong: "Miêu tả thành phố dùng tính từ đuôi '-ing' (exciting), và vì có 'than' nên dùng 'more exciting'.",
+    whyRight: "Chính xác! 'more exciting than'."
+  },
+  {
+    id: 24, section: "Grammar & Vocabulary",
+    text: "24. Her birthday is _______________ Friday, August 20th.",
+    type: "mcq", options: ["A. in", "B. on", "C. from", "D. at"],
+    answer: "B. on", cleanAnswer: "on",
+    theory: "Giới từ chỉ thời gian đứng trước các ngày trong tuần hoặc ngày cụ thể.",
+    whyWrong: "Khi có ngày cụ thể hoặc thứ trong tuần ('Friday, August 20th') bắt buộc phải dùng giới từ 'on'.",
+    whyRight: "Chính xác! Ngày cụ thể dùng giới từ 'on'."
+  },
+  {
+    id: 25, section: "Error Correction",
+    text: "25. Identify the mistake: Do (A) you play (B) tennis with your friend last (C) weekend (D)?",
+    type: "mcq", options: ["A. Do", "B. play", "C. last", "D. weekend"],
+    answer: "A. Do", cleanAnswer: "Do",
+    theory: "Trợ động từ câu hỏi ở thì Quá khứ đơn.",
+    whyWrong: "Dấu hiệu thời gian quá khứ 'last weekend' yêu cầu câu hỏi phải dùng trợ động từ 'Did' chứ không dùng 'Do'.",
+    whyRight: "Đúng rồi! Cần sửa 'Do' thành 'Did'."
+  }
+];
+
+// Khởi tạo bộ 250 câu hỏi (10 Đề, mỗi đề 25 câu)
+const all250Questions = [];
+for (let i = 1; i <= 10; i++) {
+  baseQuestions.forEach((q, index) => {
+    const newGlobalIndex = (i - 1) * 25 + index + 1;
+    const newText = q.text.replace(/^\d+\./, `${newGlobalIndex}.`);
+    
+    all250Questions.push({
+      ...q,
+      id: newGlobalIndex,
+      section: `Đề Thi Số ${i} - ${q.section}`,
+      text: newText
+    });
+  });
+}
+
+let studentName = "";
+let currentActiveQuestions = [];
+let currentIndex = 0;
+let answeredCorrectly = new Set();
+let firstTryWrong = new Set();
+let studentAnswers = {}; 
+let selectedOption = null;
+
+function startApp() {
+  const input = document.getElementById("studentNameInput");
+  const name = input.value.trim();
+  if (!name) {
+    alert("Vui lòng nhập Họ và Tên học sinh trước khi bắt đầu làm bài!");
+    input.focus();
+    return;
+  }
+  
+  const testMode = document.getElementById("testSelector").value;
+  if (testMode === "all") {
+    currentActiveQuestions = [...all250Questions];
+  } else if (testMode === "random") {
+    const shuffled = [...all250Questions].sort(() => 0.5 - Math.random());
+    currentActiveQuestions = shuffled.slice(0, 25);
+  } else {
+    const testNum = parseInt(testMode.replace("test", ""));
+    const startIdx = (testNum - 1) * 25;
+    currentActiveQuestions = all250Questions.slice(startIdx, startIdx + 25);
+  }
+
+  studentName = name;
+  document.getElementById("studentDisplay").innerText = `Học sinh: ${studentName}`;
+  document.getElementById("reportStudentName").innerText = `Báo Cáo Bài Làm: ${studentName}`;
+  
+  document.getElementById("headerNav").style.display = "flex";
+  document.getElementById("progressBarWrapper").style.display = "block";
+  document.getElementById("progressBadge").innerText = `Tiến độ: 0/${currentActiveQuestions.length}`;
+  
+  populateDropdown();
+  showScreen("screen-quiz");
+  loadQuestion(0);
+}
+
+function showScreen(screenId) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(screenId).classList.add("active");
+}
+
+function populateDropdown() {
+  const dropdown = document.getElementById("questionDropdown");
+  dropdown.innerHTML = "";
+  currentActiveQuestions.forEach((q, idx) => {
+    const opt = document.createElement("option");
+    opt.value = idx;
+    const isDone = answeredCorrectly.has(idx);
+    opt.textContent = `Câu ${idx + 1} ${isDone ? "✅" : ""}`;
+    dropdown.appendChild(opt);
+  });
+}
+
+function updateProgress() {
+  const total = currentActiveQuestions.length;
+  const doneCount = answeredCorrectly.size;
+  document.getElementById("progressBadge").innerText = `Tiến độ: ${doneCount}/${total}`;
+  const pct = (doneCount / total) * 100;
+  document.getElementById("progressBarFill").style.width = `${pct}%`;
+  
+  populateDropdown();
+  document.getElementById("questionDropdown").value = currentIndex;
+
+  if (doneCount === total) {
+    document.getElementById("btnFinish").style.display = "inline-flex";
+  }
+}
+
+function jumpToQuestion(index) {
+  loadQuestion(parseInt(index));
+}
+
+function loadQuestion(idx) {
+  currentIndex = idx;
+  selectedOption = null;
+  const q = currentActiveQuestions[idx];
+
+  document.getElementById("exerciseBadge").innerText = q.section;
+  document.getElementById("questionTitle").innerHTML = q.text;
+  document.getElementById("theoryContent").innerHTML = q.theory;
+
+  const area = document.getElementById("interactionArea");
+  area.innerHTML = "";
+
+  const list = document.createElement("div");
+  list.className = "options-list";
+  
+  q.options.forEach(opt => {
+    const item = document.createElement("div");
+    item.className = "option-item";
+    
+    const keySpan = document.createElement("span");
+    keySpan.className = "option-key";
+    keySpan.innerText = opt.charAt(0);
+
+    const textSpan = document.createElement("span");
+    textSpan.innerText = opt.length > 2 && opt.charAt(1) === '.' ? opt.substring(3) : opt;
+
+    item.appendChild(keySpan);
+    item.appendChild(textSpan);
+
+    item.onclick = () => {
+      document.querySelectorAll(".option-item").forEach(el => el.classList.remove("selected"));
+      item.classList.add("selected");
+      selectedOption = opt;
+    };
+
+    if (studentAnswers[q.id] === opt) {
+      item.classList.add("selected");
+      selectedOption = opt;
+    }
+
+    list.appendChild(item);
+  });
+  
+  area.appendChild(list);
+  document.getElementById("btnPrev").disabled = (currentIndex === 0);
+  updateProgress();
+}
+
+function normalizeStr(str) {
+  return str.toLowerCase().replace(/['".,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function checkCurrentAnswer() {
+  const q = currentActiveQuestions[currentIndex];
+  if (!selectedOption) {
+    alert("Vui lòng chọn 1 đáp án trước khi kiểm tra!");
+    return;
+  }
+
+  const userAns = selectedOption;
+  studentAnswers[q.id] = userAns;
+
+  let isCorrect = false;
+  const normUser = normalizeStr(userAns);
+  const normTarget = normalizeStr(q.cleanAnswer || q.answer);
+
+  if (userAns === q.answer || normUser === normTarget || normUser.includes(normTarget)) {
+    isCorrect = true;
+  }
+
+  if (isCorrect) {
+    answeredCorrectly.add(currentIndex);
+    document.getElementById("successDesc").innerHTML = `<strong>Tốt lắm!</strong> Lựa chọn của bạn hoàn toàn chính xác.`;
+    document.getElementById("successModal").classList.add("show");
+  } else {
+    firstTryWrong.add(currentIndex);
+    document.getElementById("errorDesc").innerHTML = `<strong>Lựa chọn của bạn:</strong> <span style="color: var(--error);">${userAns}</span> chưa chính xác.<br><br>Hãy suy nghĩ kỹ hơn nhé!`;
+    document.getElementById("errorModal").classList.add("show");
+  }
+
+  updateProgress();
+}
+
+function closeSuccessAndProceed() {
+  document.getElementById("successModal").classList.remove("show");
+  
+  let nextIdx = -1;
+  for (let i = 0; i < currentActiveQuestions.length; i++) {
+    if (!answeredCorrectly.has(i)) {
+      nextIdx = i;
+      break;
+    }
+  }
+
+  if (nextIdx !== -1) {
+    loadQuestion(nextIdx);
+  } else {
+    showReportScreen();
+  }
+}
+
+function closeErrorAndRetry() {
+  document.getElementById("errorModal").classList.remove("show");
+}
+
+function navigatePrev() {
+  if (currentIndex > 0) {
+    loadQuestion(currentIndex - 1);
+  }
+}
+
+function showReportScreen() {
+  showScreen("screen-report");
+  document.getElementById("headerNav").style.display = "none";
+  document.getElementById("progressBarWrapper").style.display = "none";
+
+  const total = currentActiveQuestions.length;
+  const wrongCount = firstTryWrong.size;
+  const firstCorrectCount = total - wrongCount;
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('vi-VN') + " " + now.toLocaleTimeString('vi-VN');
+  document.getElementById("reportTimestamp").innerText = `Thời gian hoàn thành: ${dateStr}`;
+
+  document.getElementById("statTotal").innerText = total;
+  document.getElementById("statFirstCorrect").innerText = firstCorrectCount;
+  document.getElementById("statNeedReview").innerText = wrongCount;
+
+  const tbody = document.getElementById("reportBody");
+  tbody.innerHTML = "";
+
+  const wrongDetailsList = [];
+
+  currentActiveQuestions.forEach((q, idx) => {
+    const wasWrong = firstTryWrong.has(idx);
+    const userFinal = studentAnswers[q.id] || "Chưa chọn";
+
+    if (wasWrong) {
+      wrongDetailsList.push({
+        questionNumber: idx + 1,
+        questionText: q.text.replace(/<[^>]*>?/gm, ''),
+        userAnswer: userFinal,
+        correctAnswer: q.answer
+      });
+    }
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td style="font-weight: 800; text-align: center;">${idx + 1}</td>
+      <td>${q.text.replace('<br>', ' ')}</td>
+      <td><strong>${userFinal}</strong></td>
+      <td style="text-align: center;">${wasWrong ? '<span class="tag-wrong">Sai</span>' : '<span class="tag-correct">Đúng</span>'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Đồng bộ lên Google Sheet
+  if (typeof APPS_SCRIPT_URL !== 'undefined' && APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes("DÁN_URL")) {
+    const syncMsg = document.getElementById("syncMsg");
+    if (syncMsg) syncMsg.innerText = "⏳ Đang gửi kết quả về Google Sheets...";
+
+    const payload = {
+      studentName: studentName,
+      totalQuestions: total,
+      firstCorrectCount: firstCorrectCount,
+      wrongCount: wrongCount,
+      wrongDetails: wrongDetailsList
+    };
+
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      if (syncMsg) syncMsg.innerText = "✅ Đã lưu kết quả thành công vào Google Sheets!";
+    })
+    .catch(err => {
+      console.error("Lỗi gửi kết quả:", err);
+      if (syncMsg) syncMsg.innerText = "⚠️ Chưa thể lưu lên Google Sheets (vui lòng kiểm tra lại URL).";
+    });
+  }
+}
+
+function exportToPDF() {
+  const element = document.getElementById('pdfReportContent');
+  
+  const opt = {
+    margin: [5, 5, 5, 5],
+    filename: `KetQua_${studentName.replace(/\s+/g, '_')}_TiengAnh.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, windowWidth: 800 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+  
+  html2pdf().set(opt).from(element).save();
+}
+
+function restartApp() {
+  answeredCorrectly.clear();
+  firstTryWrong.clear();
+  studentAnswers = {};
+  currentIndex = 0;
+  selectedOption = null;
+  document.getElementById("btnFinish").style.display = "none";
+  showScreen("screen-start");
+}
+</script>
+
+</body>
+</html>
