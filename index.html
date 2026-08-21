@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ôn Thi Tiếng Anh Vào Lớp 6 - Luyện Tập Trắc Nghiệm Online</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- Thư viện tạo file PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
@@ -25,484 +24,85 @@
       --radius-md: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Nunito', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+    body { background: var(--bg-grad); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 20px 14px; }
+    .app-container { width: 100%; max-width: 800px; background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; border: 3px solid #EEF2FF; position: relative; }
 
-    body {
-      background: var(--bg-grad);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 20px 14px;
-    }
+    /* Header */
+    .app-header { background: var(--primary-grad); color: white; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .app-title h1 { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+    .app-title p { font-size: 0.85rem; opacity: 0.95; font-weight: 600; }
+    .nav-controls { display: flex; align-items: center; gap: 10px; }
+    .progress-badge { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(8px); padding: 6px 12px; border-radius: 30px; font-size: 0.85rem; font-weight: 800; border: 1px solid rgba(255, 255, 255, 0.4); }
+    .dropdown-select { background: white; color: var(--text-main); border: 2px solid #C7D2FE; border-radius: 12px; padding: 6px 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer; outline: none; max-width: 180px; }
 
-    .app-container {
-      width: 100%;
-      max-width: 800px;
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-      border: 3px solid #EEF2FF;
-      position: relative;
-    }
+    .progress-bar-container { width: 100%; height: 8px; background: #E2E8F0; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #10B981, #06B6D4); width: 0%; transition: width 0.3s ease; }
 
-    .app-header {
-      background: var(--primary-grad);
-      color: white;
-      padding: 20px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
+    .main-body { padding: 28px 24px; }
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .app-title h1 {
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    /* Start Card */
+    .start-card { text-align: center; padding: 30px 10px; }
+    .mascot-icon { font-size: 4rem; margin-bottom: 12px; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .start-card h2 { font-size: 1.6rem; font-weight: 900; color: #4F46E5; margin-bottom: 8px; }
+    .start-card p { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; font-weight: 600; }
+    .input-field { width: 100%; max-width: 400px; margin: 0 auto 20px auto; text-align: left; }
+    .input-field label { display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; color: var(--text-main); }
+    .input-field input, .input-field select { width: 100%; padding: 14px 18px; font-size: 1.1rem; font-weight: 700; border: 2.5px solid #CBD5E1; border-radius: var(--radius-md); outline: none; transition: all 0.2s; background: white; }
+    .input-field input:focus, .input-field select:focus { border-color: #4F46E5; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15); }
+    
+    .btn-main { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; background: var(--primary-grad); color: white; border: none; border-radius: var(--radius-md); font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); transition: transform 0.15s, box-shadow 0.15s; }
+    .btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4); }
 
-    .app-title p {
-      font-size: 0.85rem;
-      opacity: 0.95;
-      font-weight: 600;
-    }
+    /* Quiz Area */
+    .section-badge { display: inline-block; background: #EEF2FF; color: #4F46E5; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; margin-bottom: 14px; border: 1px solid #C7D2FE; }
+    .question-header { font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 18px; line-height: 1.5; }
+    .reading-passage { background: #F8FAFC; padding: 16px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; color: #334155; }
+    .options-list { display: grid; gap: 12px; margin-bottom: 20px; }
+    .option-item { display: flex; align-items: center; padding: 14px 18px; border: 2.5px solid var(--border-color); border-radius: var(--radius-md); background: #FFFFFF; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .option-item:hover { border-color: #818CF8; background: #F5F3FF; transform: translateX(4px); }
+    .option-item.selected { border-color: #4F46E5; background: #EEF2FF; }
+    .option-key { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #E0E7FF; color: #4338CA; border-radius: 8px; margin-right: 12px; font-weight: 900; font-size: 0.9rem; }
 
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .theory-card { background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 24px; font-size: 0.92rem; color: #475569; line-height: 1.5; }
+    .theory-card-title { font-weight: 800; color: #334155; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .quiz-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+    .btn-secondary { padding: 12px 20px; background: #F1F5F9; color: #475569; border: 2px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 800; cursor: pointer; font-size: 0.95rem; }
 
-    .progress-badge {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      padding: 6px 12px;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
+    /* Modals */
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 16px; }
+    .modal-backdrop.show { display: flex; animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .modal-content { width: 100%; max-width: 500px; border-radius: 24px; background: white; padding: 28px 24px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); }
+    .modal-content.success-modal { border-top: 8px solid var(--success); }
+    .modal-content.error-modal { border-top: 8px solid var(--error); }
+    .modal-icon { font-size: 3.5rem; margin-bottom: 12px; }
+    .modal-title { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; }
+    .modal-desc { font-size: 0.95rem; color: #475569; line-height: 1.6; margin-bottom: 22px; text-align: left; background: #F8FAFC; padding: 14px; border-radius: 12px; border: 1px solid #E2E8F0; }
 
-    .dropdown-select {
-      background: white;
-      color: var(--text-main);
-      border: 2px solid #C7D2FE;
-      border-radius: 12px;
-      padding: 6px 12px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      outline: none;
-      max-width: 180px;
-    }
-
-    .progress-bar-container {
-      width: 100%;
-      height: 8px;
-      background: #E2E8F0;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #10B981, #06B6D4);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    .main-body {
-      padding: 28px 24px;
-    }
-
-    .screen {
-      display: none;
-    }
-
-    .screen.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .start-card {
-      text-align: center;
-      padding: 30px 10px;
-    }
-
-    .mascot-icon {
-      font-size: 4rem;
-      margin-bottom: 12px;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .start-card h2 {
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: #4F46E5;
-      margin-bottom: 8px;
-    }
-
-    .start-card p {
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .input-field {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto 20px auto;
-      text-align: left;
-    }
-
-    .input-field label {
-      display: block;
-      font-weight: 800;
-      font-size: 0.9rem;
-      margin-bottom: 6px;
-      color: var(--text-main);
-    }
-
-    .input-field input, .input-field select {
-      width: 100%;
-      padding: 14px 18px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      border: 2.5px solid #CBD5E1;
-      border-radius: var(--radius-md);
-      outline: none;
-      transition: all 0.2s;
-      background: white;
-    }
-
-    .input-field input:focus, .input-field select:focus {
-      border-color: #4F46E5;
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
-    }
-
-    .btn-main {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: var(--primary-grad);
-      color: white;
-      border: none;
-      border-radius: var(--radius-md);
-      font-size: 1.05rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    .btn-main:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
-    }
-
-    .section-badge {
-      display: inline-block;
-      background: #EEF2FF;
-      color: #4F46E5;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      margin-bottom: 14px;
-      border: 1px solid #C7D2FE;
-    }
-
-    .question-header {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    .options-list {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .option-item {
-      display: flex;
-      align-items: center;
-      padding: 14px 18px;
-      border: 2.5px solid var(--border-color);
-      border-radius: var(--radius-md);
-      background: #FFFFFF;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .option-item:hover {
-      border-color: #818CF8;
-      background: #F5F3FF;
-      transform: translateX(4px);
-    }
-
-    .option-item.selected {
-      border-color: #4F46E5;
-      background: #EEF2FF;
-    }
-
-    .option-key {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: #E0E7FF;
-      color: #4338CA;
-      border-radius: 8px;
-      margin-right: 12px;
-      font-weight: 900;
-      font-size: 0.9rem;
-    }
-
-    .theory-card {
-      background: #F8FAFC;
-      border: 2px dashed #CBD5E1;
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
-      margin-bottom: 24px;
-      font-size: 0.92rem;
-      color: #475569;
-      line-height: 1.5;
-    }
-
-    .theory-card-title {
-      font-weight: 800;
-      color: #334155;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .quiz-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .btn-secondary {
-      padding: 12px 20px;
-      background: #F1F5F9;
-      color: #475569;
-      border: 2px solid #CBD5E1;
-      border-radius: var(--radius-md);
-      font-weight: 800;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .modal-backdrop.show {
-      display: flex;
-      animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .modal-content {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 24px;
-      background: white;
-      padding: 28px 24px;
-      text-align: center;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-content.success-modal {
-      border-top: 8px solid var(--success);
-    }
-
-    .modal-content.error-modal {
-      border-top: 8px solid var(--error);
-    }
-
-    .modal-icon {
-      font-size: 3.5rem;
-      margin-bottom: 12px;
-    }
-
-    .modal-title {
-      font-size: 1.4rem;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-
-    .modal-desc {
-      font-size: 0.95rem;
-      color: #475569;
-      line-height: 1.6;
-      margin-bottom: 22px;
-      text-align: left;
-      background: #F8FAFC;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid #E2E8F0;
-    }
-
-    .report-card {
-      padding: 10px 0;
-    }
-
-    .report-hero {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .report-hero h2 {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #4F46E5;
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .stat-box {
-      background: #F8FAFC;
-      border: 2px solid var(--border-color);
-      border-radius: 16px;
-      padding: 16px 8px;
-      text-align: center;
-    }
-
-    .stat-box.highlight-1 {
-      border-color: #C7D2FE;
-      background: #EEF2FF;
-      color: #4338CA;
-    }
-
-    .stat-box.highlight-2 {
-      border-color: #A7F3D0;
-      background: #ECFDF5;
-      color: #065F46;
-    }
-
-    .stat-box.highlight-3 {
-      border-color: #FECDD3;
-      background: #FFF1F2;
-      color: #9F1239;
-    }
-
-    .stat-val {
-      font-size: 1.7rem;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-
-    .stat-lbl {
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      border-radius: 14px;
-      border: 1.5px solid var(--border-color);
-      margin-bottom: 24px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-      text-align: left;
-    }
-
-    th {
-      background: #F1F5F9;
-      color: #334155;
-      font-weight: 800;
-      padding: 12px 14px;
-      border-bottom: 2px solid var(--border-color);
-    }
-
-    td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border-color);
-      vertical-align: top;
-    }
-
-    .tag-wrong {
-      color: var(--error);
-      font-weight: 700;
-      background: #FEF2F2;
-      padding: 2px 6px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-
-    .tag-correct {
-      color: var(--success);
-      font-weight: 700;
-      background: #ECFDF5;
-      padding: 2px 6px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-
-    .sync-status {
-      font-size: 0.9rem;
-      color: var(--primary);
-      font-weight: 700;
-      margin-top: 8px;
-    }
-
-    .btn-pdf {
-      background: linear-gradient(135deg, #0284C7, #0369A1);
-    }
+    /* Report Screen */
+    .report-card { padding: 10px 0; }
+    .report-hero { text-align: center; margin-bottom: 24px; }
+    .report-hero h2 { font-size: 1.8rem; font-weight: 900; color: #4F46E5; }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+    .stat-box { background: #F8FAFC; border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 8px; text-align: center; }
+    .stat-box.highlight-1 { border-color: #C7D2FE; background: #EEF2FF; color: #4338CA; }
+    .stat-box.highlight-2 { border-color: #A7F3D0; background: #ECFDF5; color: #065F46; }
+    .stat-box.highlight-3 { border-color: #FECDD3; background: #FFF1F2; color: #9F1239; }
+    .stat-val { font-size: 1.7rem; font-weight: 900; margin-bottom: 4px; }
+    .stat-lbl { font-size: 0.8rem; font-weight: 800; }
+    .table-container { overflow-x: auto; border-radius: 14px; border: 1.5px solid var(--border-color); margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+    th { background: #F1F5F9; color: #334155; font-weight: 800; padding: 12px 14px; border-bottom: 2px solid var(--border-color); }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+    .tag-wrong { color: var(--error); font-weight: 700; background: #FEF2F2; padding: 2px 6px; border-radius: 6px; display: inline-block; }
+    .tag-correct { color: var(--success); font-weight: 700; background: #ECFDF5; padding: 2px 6px; border-radius: 6px; display: inline-block; }
+    .sync-status { font-size: 0.9rem; color: var(--primary); font-weight: 700; margin-top: 8px; }
+    .btn-pdf { background: linear-gradient(135deg, #0284C7, #0369A1); }
 
     /* In PDF optimization to fit 1 A4 page */
     @media print {
@@ -512,10 +112,10 @@
       .report-hero h2 { font-size: 1.3rem !important; margin: 0 !important; }
       .report-hero p { margin: 2px 0 !important; font-size: 0.8rem !important; }
       .stat-grid { margin-bottom: 10px !important; gap: 5px !important; display: flex !important; justify-content: space-between !important; }
-      .stat-box { padding: 5px !important; flex: 1 !important; border: 1px solid #ccc !important; background: transparent !important; }
-      .stat-val { font-size: 1.1rem !important; margin-bottom: 0 !important; color: #000 !important; }
-      .stat-lbl { font-size: 0.65rem !important; color: #000 !important; }
-      h3 { font-size: 1rem !important; margin-bottom: 5px !important; color: #000 !important; }
+      .stat-box { padding: 5px !important; flex: 1 !important; border: 1px solid #ccc !important; }
+      .stat-val { font-size: 1.1rem !important; margin-bottom: 0 !important; }
+      .stat-lbl { font-size: 0.65rem !important; }
+      h3 { font-size: 1rem !important; margin-bottom: 5px !important; }
       .table-container { margin-bottom: 5px !important; border: 1px solid #000; border-radius: 0; }
       table { font-size: 0.7rem !important; line-height: 1.2 !important; }
       th, td { padding: 4px 6px !important; border-bottom: 1px solid #ccc !important; }
@@ -528,18 +128,9 @@
     }
 
     @media (max-width: 600px) {
-      .stat-grid {
-        grid-template-columns: 1fr;
-      }
-      .app-header {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-      }
-      .nav-controls {
-        width: 100%;
-        justify-content: space-between;
-      }
+      .stat-grid { grid-template-columns: 1fr; }
+      .app-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .nav-controls { width: 100%; justify-content: space-between; }
     }
   </style>
 </head>
@@ -564,56 +155,30 @@
 
   <div class="main-body">
     <div id="screen-start" class="screen active">
-      <div class="start-card">
-        <div class="mascot-icon">📚</div>
-        <h2>Bắt Đầu Bài Thi Ôn Luyện</h2>
-        <p>Kho dữ liệu: <strong>250 Câu Hỏi</strong> ôn tập toàn diện</p>
-        <div class="input-field">
-          <label for="studentNameInput">Họ và Tên Học Sinh:</label>
-          <input type="text" id="studentNameInput" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off">
-        </div>
-        
-        <!-- Menu Lựa Chọn Bộ Đề -->
-        <div class="input-field">
-          <label for="testSelector">Chọn Bộ Đề Cần Làm:</label>
-          <select id="testSelector">
-            <option value="test1">📝 Đề Thi Số 1 (25 Câu)</option>
-            <option value="test2">📝 Đề Thi Số 2 (25 Câu)</option>
-            <option value="test3">📝 Đề Thi Số 3 (25 Câu)</option>
-            <option value="test4">📝 Đề Thi Số 4 (25 Câu)</option>
-            <option value="test5">📝 Đề Thi Số 5 (25 Câu)</option>
-            <option value="test6">📝 Đề Thi Số 6 (25 Câu)</option>
-            <option value="test7">📝 Đề Thi Số 7 (25 Câu)</option>
-            <option value="test8">📝 Đề Thi Số 8 (25 Câu)</option>
-            <option value="test9">📝 Đề Thi Số 9 (25 Câu)</option>
-            <option value="test10">📝 Đề Thi Số 10 (25 Câu)</option>
-            <option value="random">🎲 Đề Kiểm Tra Ngẫu Nhiên (25 Câu)</option>
-            <option value="all">🔥 Thử Thách Cực Đại: Toàn bộ 250 Câu</option>
-          </select>
-        </div>
-
-        <button class="btn-main" onclick="startApp()">
-          Vào Làm Bài Ngay ⚡
-        </button>
+      <div class="start-card" id="startCardContent">
+        <div class="mascot-icon">⏳</div>
+        <h2>Đang tải dữ liệu...</h2>
+        <p>Hệ thống đang chuẩn bị bộ 250 câu hỏi. Vui lòng chờ trong giây lát.</p>
       </div>
     </div>
 
     <div id="screen-quiz" class="screen">
       <div class="section-badge" id="exerciseBadge">Đề thi</div>
+      
+      <!-- Khối bài đọc -->
+      <div id="readingPassageContainer" class="reading-passage" style="display: none;"></div>
+      
       <div class="question-header" id="questionTitle">Câu hỏi...</div>
-
-      <!-- Khu vực phương án trắc nghiệm -->
       <div id="interactionArea"></div>
 
-      <!-- Khung Lý Thuyết & Hướng Dẫn (Không lộ đáp án) -->
+      <!-- Khung Gợi Ý Phương Pháp -->
       <div class="theory-card">
         <div class="theory-card-title">
-          <span>💡 Lý thuyết & Hướng làm bài:</span>
+          <span>💡 Phương pháp & Hướng làm bài:</span>
         </div>
         <div id="theoryContent">...</div>
       </div>
 
-      <!-- Action buttons -->
       <div class="quiz-actions">
         <button class="btn-secondary" id="btnPrev" onclick="navigatePrev()">⬅ Câu trước</button>
         <button class="btn-main" id="btnCheck" onclick="checkCurrentAnswer()">Kiểm tra đáp án ✨</button>
@@ -645,15 +210,20 @@
           </div>
         </div>
 
-        <h3 style="font-weight: 900; margin-bottom: 12px; color: var(--text-main);">📋 Bảng đối chiếu chi tiết bài làm:</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="font-weight: 900; color: var(--text-main); margin: 0;">📋 Bảng đánh giá chi tiết:</h3>
+            <!-- Nút PDF xuất hiện cạnh tiêu đề bảng -->
+            <button class="btn-main btn-pdf" style="padding: 8px 16px; font-size: 0.9rem;" onclick="exportToPDF()">📄 Xuất Báo Cáo PDF</button>
+        </div>
+
         <div class="table-container">
           <table>
             <thead>
               <tr>
-                <th style="width: 8%;">STT</th>
+                <th style="width: 8%; text-align: center;">STT</th>
                 <th style="width: 50%;">Câu hỏi</th>
-                <th style="width: 30%;">Đáp án đã chọn</th>
-                <th style="width: 12%;">Kết quả</th>
+                <th style="width: 30%;">Đáp án bạn chọn</th>
+                <th style="width: 12%; text-align: center;">Kết quả</th>
               </tr>
             </thead>
             <tbody id="reportBody"></tbody>
@@ -662,8 +232,7 @@
       </div>
 
       <div class="report-btn-group" style="display: flex; gap: 12px; margin-top: 20px;">
-        <button class="btn-main btn-pdf" style="flex: 1;" onclick="exportToPDF()">📄 Xuất Báo Cáo PDF</button>
-        <button class="btn-main" style="flex: 1;" onclick="restartApp()">🔄 Làm Lại Từ Đầu</button>
+        <button class="btn-main" style="width: 100%;" onclick="restartApp()">🔄 Làm Lại Từ Đầu</button>
       </div>
     </div>
   </div>
@@ -672,8 +241,8 @@
 <div class="modal-backdrop" id="successModal">
   <div class="modal-content success-modal">
     <div class="modal-icon">🎉</div>
-    <div class="modal-title" style="color: var(--success);">Chính Xác! Tuyệt Vời!</div>
-    <div class="modal-desc" id="successDesc">Giải thích đúng...</div>
+    <div class="modal-title" style="color: var(--success);">Tuyệt Vời!</div>
+    <div class="modal-desc" id="successDesc">Lựa chọn của bạn hoàn toàn chính xác.</div>
     <button class="btn-main" style="background: var(--success); width: 100%;" onclick="closeSuccessAndProceed()">
       Tiếp tục câu tiếp theo ➡
     </button>
@@ -683,295 +252,761 @@
 <div class="modal-backdrop" id="errorModal">
   <div class="modal-content error-modal">
     <div class="modal-icon">⚠️</div>
-    <div class="modal-title" style="color: var(--error);">Chưa Chính Xác Rồi!</div>
-    <div class="modal-desc" id="errorDesc">Phân tích lỗi sai...</div>
+    <div class="modal-title" style="color: var(--error);">Chưa Chính Xác!</div>
+    <div class="modal-desc" id="errorDesc">Lựa chọn của bạn chưa đúng. Hãy cố gắng nhé!</div>
     <button class="btn-main" style="background: var(--error); width: 100%;" onclick="closeErrorAndRetry()">
-      Thử lại ngay nào 🔁
+      Suy nghĩ và chọn lại 🔁
     </button>
   </div>
 </div>
 
+<!-- DATA MARKDOWN CHỨA FULL 250 CÂU -->
+<script type="text/markdown" id="raw-markdown-data">
+# TỔNG HỢP TRẮC NGHIỆM TIẾNG ANH VÀO LỚP 6 - ĐỢT 1 (ĐỀ 1 ĐẾN ĐỀ 5)
+
+Bộ tài liệu này tổng hợp toàn bộ các câu hỏi trắc nghiệm khách quan (Phát âm, Trọng âm, Ngữ pháp & Từ vựng, Điền từ đoạn văn, Đọc hiểu trắc nghiệm, Sửa lỗi sai) từ Đề số 1 đến Đề số 5 của cả hai tài liệu ôn thi vào lớp 6 môn Tiếng Anh.
+
+---
+
+## PHẦN I: BỘ ĐỀ ÔN LUYỆN THI VÀO LỚP 6 (ĐỀ 1 - ĐỀ 5)
+
+### TEST 1
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. pens /z/ B. books /s/ C. rulers /z/ D. pencils /z/
+2. A. meat /i:/ B. seat /i:/ C. teach /i:/ D. wear /eə/
+3. A. wanted /ɪd/ B. watched /t/ C. needed /ɪd/ D. visited /ɪd/
+4. A. thing /θ/ B. father /ð/ C. the /ð/ D. these /ð/
+
+#### II. Find the word which is not the same as the others in a group.
+5. A. worker B. doctor C. job D. farmer
+6. A. begin B. read C. handsome D. close
+
+#### III. Circle the word or phrase (A, B, C or D) that best completes the sentences.
+7. The bakery is_____________ of the pharmacy.
+A. between B. to the left C. near to D. in front
+8. ______________ can I get there? - By train.
+A. Where B. Who C. How D. How often
+9. My brother often __________ TV after dinner.
+A. watch B. watches C. watchs D. are watching
+10. “What ___________ going to Hanoi tomorrow?”
+A. at B. to C. about D. into
+11. Why don't we_____________ chess together?
+A. play B. playing C. to play D. played
+12. “-Does your sister have English on Wednesday? - __________ ?”
+A. Yes, she is. B. No, she isn’t. C. Yes, she does. D. No, she not have
+13. How __________ do you go to the cinema?
+A. many B. often C. much D. usually
+14. __________ summer, I often go swimming.
+A. Of B. On C. In D. At
+15. “- Does Tom like __________ badminton? – No. He likes tennis.”
+A. play B. to playing C. plays D. playing
+16. “- Would you like __________ coffee? – Yes, please.”
+A. any B. some C. a D. an
+17. She teaches kids in an English center. She is a __________ .
+A. teacher B. doctor C. nurse D. farmer
+18. Mary and Tom __________ their homework now.
+A. is doing B. do C. does D. are doing
+19. “ - __________?“ – He is kind and handsome”.
+A. How is your neighbor? B. What does your neighbor like?
+C. How old is your neighbor? D. What is your neighbor like?
+20. “ - How much is that skirt? – __________ .”
+A. It’s 200,000 VND. B. It’s made in China. C. It’s cheap. D. I don’t like it. I like this one.
+
+#### IV. Choose the correct answer A, B, C, or D to complete the following text.
+My name is Peter. I'm doing a survey about my friends' hobbies. They enjoy doing different activities. My best friend, Tom, (21) __________ playing the piano in his free time. He plays it very (22) __________. He started practicing piano when he (23) __________ only five years old. He wants to be a pianist when he (24) __________ up. Unlike Tom, Mary isn't good (25) __________ music. She is fond of collecting stamps in her free time.
+21. A. like B. liked C. is like D. likes
+22. A. good B. better C. well D. best
+23. A. is B. has been C. will be D. was
+24. A. grows B. grew C. grow D. growing
+25. A. for B. at C. in D. of
+
+---
+
+### TEST 2
+
+#### I. Choose the word which has the underlined part pronounced differently from the others.
+1. A. visited /ɪd/ B. stopped /t/ C. cooked /t/ D. washed /t/
+2. A. city /ɪ/ B. sign /aɪ/ C. bike /aɪ/ D. spider /aɪ/
+3. A. kitchen /tʃ/ B. chair /tʃ/ C. character /k/ D. children /tʃ/
+
+#### II. Find the word which is not the same as the others in a group.
+4. A. love B. like C. enjoy D. hate
+5. A. elephant B. giraffe C. zoo D. crocodile
+
+#### III. Circle the word or phrase (A, B, C or D) that best completes the sentences.
+6. They often go to school _____________ foot.
+A. in B. on C. by D. to
+7. _____________ lessons does she have today?
+A. How much B. How many C. How long D. How
+8. He usually _____________ a bus to work.
+A. takes B. gets C. goes D. puts
+9. Last night I _____________ a lot of food, so I felt unwell.
+A. ate B. eaten C. eat D. eats
+10. We _____________ dinner at presents.
+A. is having B. are having C. eat D. eats
+11. Nam would like _____________ a doctor when he grows up.
+A. become B. to become C. be D. is
+12. Would you like _____________ sandwiches?
+A. any B. some C. many D. a
+13. Can you _____________ me the way to the post office, please?
+A. show B. say C. talk D. ask
+14. I _____________ to Nha Trang last summer holiday.
+A. go B. went C. to go D. going
+15. My younger brother wants to fly a plane. He wants to be a _____________ .
+A. footballer B. pilot C. writer D. singer
+16. I’m thirsty. I want _____________ orange juice.
+A. some B. any C. an D. a
+17. _____________ do you like giraffes? Because they are cute.
+A. Why B. What C. Where D. How
+18. Don’t play with a knife _____________ it is dangerous.
+A. when B. because C. so D. that
+19. “_____________ chocolate do you eat every day? – Two bars.”
+A. How B. How much C. How many D. How often
+20. Mom: “Don’t climb the apple tree over there!” – Nam: “OK, I ____________”
+A. will B. can C. can’t D. won’t
+
+#### IV. Choose the correct answer A, B, C, or D to complete the following text.
+Television first came about sixty years ago in the 1950s. Nowadays, it is one of the most (21) __________ sources of entertainment for both the old and the young. Television brings (22) __________ for children, world news, music and many other (23) __________. If someone likes sports, he can just choose the right sports (24) __________. It is not difficult for us to see why (25) __________ is a TV set in almost every home today.
+21. A. cheap B. expensive C. popular D. exciting
+22. A. news B. cartoons C. sports D. plays
+23. A. sets B. reports C. channels D. programmes
+24. A. athletes B. channel C. time D. studio
+25. A. it B. this C. that D. there
+
+---
+
+### TEST 3
+
+#### I. Choose the word which has the underlined part pronounced differently from the others.
+1. A. houses /ɪz/ B. benches /ɪz/ C. shelves /z/ D. coaches /ɪz/
+2. A. soccer /ə/ B. tennis /e/ C. tent /e/ D. never /e/
+3. A. music /ju:/ B. bus /ʌ/ C. uncle /ʌ/ D. summer /ʌ/
+
+#### II. Find the word which is not the same as the others in a group.
+4. A. sunny B. windy C. easy D. cloudy
+5. A. playground B. gym C. computer room D. bathroom
+
+#### III. Choose the word or phrase (A, B, C or D) that best completes the sentences.
+6. She usually __________ dressed, combs her hair and goes to school.
+A. takes B. gets C. wears D. puts
+7. My parents __________ breakfast in the kitchen now.
+A. have B. having C. are having D. is having
+8. “ - __________ can I get there? – By bus.”
+A. Where B. Who C. How D. How often
+9. What are the people there __________ ? – “They are friendly.”
+A. love B. look C. like D. enjoy
+10. Going by plane is __________ than going by coach.
+A. fast B. fastest C. more fastly D. faster
+11. Ha Noi is __________ exciting than Viet Tri City.
+A. much B. more C. very D. many
+12. My brother is a __________ driver.
+A. careful B. care C. caring D. carefully
+13. Where __________ you last summer?
+A. are B. do C. were D. did
+14. “ - __________ did you go there? - Because I wanted to buy some books.”
+A. What B. Where C. When D. Why
+15. “- What’s the matter with you? - __________ “
+A. I have a toothache. B. I like English. C. I’m reading a book. D. I have a new book.
+
+#### IV. Each of the following sentences has one mistake. Identify and correct the mistakes.
+16. They do (A) swimming with (B) their friends (C) after (D) school.
+17. I will visit (A) you (B) and your (C) family on (D) September.
+18. What is (A) the weather be (B) like (C) tomorrow in (D) Ha Noi tomorrow?
+19. She (A) goes to (B) the library three time (C) a week (D).
+20. They usually (A) watches (B) TV after (C) dinner (D).
+
+#### V. Choose the correct answer A. B, C, or D to complete the following text.
+Our future house will be on the ocean. It will be surrounded by tall trees and blue sea. But we only have salt water in the ocean. We needs fresh water for (21) _______________ and for growing food (22) _______________ farms. Ocean water is too salty (23) _______________. It is also too salty for watering plants. We must have the (24) _______________ to make fresh water from salty water. We should be (25) _______________ not to waste water.
+21. A. drink B. to drink C. drinking D. to drinking
+22. A. on B. at C. in D. into
+23. A. drink B. to drink C. drinking D. for drink
+24. A. things B. suggestions C. ways D. ideas
+25. A. careful B. careless C. carefully D. carelessly
+
+---
+
+### TEST 4
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. character /k/ B. school /k/ C. teacher /tʃ/ D. chemistry /k/
+2. A. opened /d/ B. wanted /ɪd/ C. played /d/ D. returned /d/
+3. A. home /əʊ/ B. hot /ɒ/ C. photo /əʊ/ D. go /əʊ/
+
+#### II. Find the word which is not the same with the others in a group.
+4. A. bigger B. taller C. thinner D. clever
+5. A. short B. careful C. friendly D. write
+
+#### III. Circle the word of phrase (A, B, C or D) that best completes the sentences.
+6. I drink two __________ of water every day.
+A. glass B. bars C. bottles D. packet
+7. Last summer, I __________ fishing with my uncle in the afternoon.
+A. go B. went C. goes D. going
+8. They cancelled the picnic _______________ the weather was bad.
+A. because B. when C. but D. and
+9. I think Da Nang city is__________ than Hue City.
+A. exciting B. more exciting C. excited D. more excited
+10. “What was the trip like? – It __________ wonderful.”
+A. is B. are C. was D. were
+11. I _______________ born on the first of May.
+A. are B. am C. were D. was
+12. “Don’t touch the stove. You may get burned.” “- __________”
+A. OK. I won’t B. Yes, I do. C. I like it D. You’re welcome.
+13. Last month Nam and some of his friends didn’t __________ to class.
+A. come B. comes C. coming D. came
+14. Where did you go last summer? – I __________ to Nha Trang.
+A. went B. am going C. was went D. go
+15. __________ didn’t you go to school yesterday? – Because I was ill.
+A. Who B. Where C. When D. Why
+
+#### IV. Read the following passage and mark the letter A, B, C, or D to indicate the correct word or phrase that best fits each of the numbered blanks.
+This is the story of my friend Minh. He is seven years old. He (21) _____ on 24th April in Hanoi. He lives at 14 Le Thanh Tong Street, Hanoi. He is a student at Thang Long (22) _____. Last week, he was in a clothing store. He liked a blue blouse and (23) _____ white shorts. Next, he (24) _____ the post office because he wanted some stamps. Then, he went to a bookshop because he wanted some books and postcards. He (25) __________ home at 6.30 p.m.
+21. A. is B. were born C. was born D. is born
+22. A. high school B. primary school C. secondary school D. kindergarten
+23. A. a pair of B. a bottle of C. a lot of D. a tube of
+24. A. went to B. go to C. goes to D. went
+25. A. arrives B. arrived C. arrive D. arriving
+
+---
+
+### TEST 5
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. school /k/ B. mechanic /k/ C. Christmas /k/ D. watch /tʃ/
+2. A. meat /i:/ B. bear /eə/ C. read /i:/ D. please /i:/
+3. A. cool /u:/ B. zoo /u:/ C. floor /ɔ:/ D. tooth /u:/
+
+#### II. Find the word which is not the same as the others in a group.
+4. A. ill B. sick C. health D. strong
+5. A. live B. smile C. sleep D. happy
+
+#### III. Circle the word of phrase (A, B, C or D) that best completes the sentences.
+6. Let's _________ to the zoo now.
+A. go B. to go C. going D. went
+7. My father _________ trees in the garden.
+A. planting B. am planting C. is planting D. are planting
+8. She _________ skiing two weeks ago.
+A. went B. goes C. is going D. was go
+9. _______________ is your telephone number?
+A. When B. What C. Where D. Why
+10. My parents live in _________ in Ho Chi Minh city.
+A. a big apartment B. an big apartment C. a apartment D. X
+11. I’d like to buy two _________ of biscuit.
+A. bottles B. packets C. bars D. bowls
+12. Her birthday is _______________ Friday, August 20th.
+A. in B. on C. from D. at
+13. “- _________ ? – A glass of orange juice, please.”
+A. What would you like to drink? B. How much is a glass of orange juice?
+C. Orange juice is my favorite drink. D. Do you want orange juice.
+14. What _________ you want to be in the future? – I’d like to be a teacher
+A. do B. will C. would D. did
+15. "Why don't we go camping this weekend? - __________________.”
+A. Thank you! B. Yes, please. C. No, thanks a lot. D. That's a great idea!
+
+#### IV. Each of the following sentences has one mistake. Circle and correct it.
+16. How many (A) floors does (B) his house has (C)?
+17. Do (A) you play (B) tennis with your friend last (C) weekend (D)?
+18. My father (A) and I often plays (B) badminton in (C) the afternoon (D).
+19. Last weekend (A), my uncle (B) took me at (C) the zoo (D).
+20. The lions (A) roared loudly (B) and the peacocks moved (C) beautiful (D).
+
+#### V. Read and circle the correct answer.
+Vinh is a new pupil in class 5A. He is from Da Nang and his parents (21) ___________ there. He lives with his sister in Hue city. His new school is different (22) ___________ his old school. It is a big school. (23) ___________ forty classrooms in his school. It also has a lot of students. His classroom is large and (24) ___________ . He usually goes to school from Monday to Friday. Today he is at home (25) ___________ it is Sunday.
+21. A. live still B. still live C. lives still D. still lives
+22. A. in B. with C. as D. from
+23. A. There is B. They are C. There are D. There is
+24. A. young B. short C. small D. modern
+25. A. because B. when C. so D. if
+
+---
+---
+
+## PHẦN II: CHINH PHỤC ĐỀ VÀO 6 - DƯƠNG HƯƠNG (ĐỀ 1 - ĐỀ 5)
+
+### ĐỀ SỐ 1
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. devices /ɪz/ B. boxes /ɪz/ C. knives /z/ D. matches /ɪz/
+2. A. meat /i:/ B. seat /i:/ C. teach /i:/ D. health /e/
+3. A. arrange /ə/ B. advertise /æ/ C. character /k/ D. map /æ/
+4. A. these /ð/ B. father /ð/ C. although /ð/ D. thing /θ/
+
+#### II. Circle the word that has the stress differently from that of the others.
+5. A. teacher B. fashion C. garden D. machine
+6. A. begin B. happen C. handsome D. clever
+
+#### III. Circle the word or phrase (A, B, C or D) that best completes the sentence.
+7. The bank is_____________ the bakery and the post office.
+A. between B. to the left C. near to D. in front of
+8. Maths is my favourite _____________. I always get high marks.
+A. lesson B. job C. subject D. season
+9. My brother often _____________ TV after dinner.
+A. watch B. watches C. watchs D. are watching
+10. Who will look _____________ your children when you are away?
+A. at B. up C. after D. into
+11. There are_____________ students in my school this school year.
+A. seven hundred and eighty-six B. seven hundreds and eighty-six
+C. seven hundreds eighty-six D. seven hundred and eighty-sixes
+12. “- Does your daughter have English on Wednesday? - _____________.”
+A. Yes, she is B. No, she isn't C. Yes, she does D. No, she not have
+13. How _____________ do you go to the cinema, Hoa?
+A. many B. often C. much D. usually
+14. _____________ summer, I often go swimming.
+A. Of B. On C. In D. At
+15. “- Does Tom like _____________ badminton? – No. He likes tennis.”
+A. play B. to playing C. plays D. playing
+16. “- Would you like _____________ coffee? – Yes, please.”
+A. any B. some C. a D. an
+17. She teaches kids in an English center. She is a _____________ .
+A. teacher B. doctor C. nurse D. farmer
+18. Mary and Tom _____________ their homework now.
+A. is doing B. do C. does D. are doing
+19. “- ______________ ?” – “He is kind and sociable.”
+A. How is your neighbour B. What does your neighbour like
+C. How old is your neighbour D. What is your neighbour like
+20. “- How much are these trousers? -- _____________ .”
+A. They are 200,000 VND. B. They are made in China.
+C. They are expensive. D. I don't like them. I like jeans.
+
+#### IV. Read the passage and circle the best answer.
+Living in the countryside has some (21) ___________. Life here is quiet and peaceful. We can avoid noise and pollution. This is good (22) ___________ our health. Moreover, people in the country are also kind and (23) ___________. If you live in a big city, you will feel lonely because you cannot even know your (24) ___________. One of the most important things is that the cost (25) ___________ living in the countryside is lower than that in a city. You find it easy to live here permanently because things are much cheaper.
+21. A. advantages B. disadvantages C. features D. benefits
+22. A. for B. at C. with D. to
+23. A. friendly B. noisy C. careful D. busy
+24. A. neighbours B. relatives C. classmates D. friends
+25. A. of B. at C. in D. for
+
+---
+
+### ĐỀ SỐ 2
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. cook /ʊ/ B. book /ʊ/ C. foot /ʊ/ D. food /u:/
+2. A. kitchen /tʃ/ B. chair /tʃ/ C. character /k/ D. children /tʃ/
+3. A. umbrella /ʌ/ B. duck /ʌ/ C. drum /ʌ/ D. university /ju:/
+4. A. ill /ɪ/ B. ice cream /aɪ/ C. city /ɪ/ D. ship /ɪ/
+5. A. pencil /s/ B. red /d/ C. eraser /z/ D. engineer /dʒ/
+
+#### II. Circle the word or phrase that best completes the sentence.
+6. They often go to school _____________ foot.
+A. in B. on C. by D. to
+7. Nam and Hoa are _____________ good friends. _____________ live in Ha Noi.
+A. mine – They B. my – They C. my – Theirs D. me – Their
+8. He usually _____________ a bus to work.
+A. takes B. gets C. goes D. puts
+9. Last night I _____________ a lot of food, so I felt unwell.
+A. ate B. eaten C. eat D. eats
+10. The Smiths _____________ dinner at present.
+A. is having B. are having C. eat D. eats
+11. Nam would like _____________ a doctor when he grows up.
+A. become B. to become C. be D. is
+12. What _____________ you _____________ tomorrow?
+A. did – do B. are – doing C. do – do D. are – do
+13. Can you _____________ me the way to the post office, please?
+A. show B. say C. talk D. ask
+14. This morning, she _____________ a loaf of bread with an egg.
+A. is having B. was having C. had D. has
+15. My younger brother wants to fly a plane. He wants to be a _____________.
+A. footballer B. pilot C. writer D. singer
+16. I’m thirsty. I want _____________ orange juice.
+A. some B. any C. an D. a
+17. We used to _____________ in this lake when we were young.
+A. swim B. swam C. swimming D. swims
+18. Don’t play with a knife _____________ it is dangerous.
+A. when B. because C. so D. that
+19. “- _____________ chocolate do you eat every day? -- Two bars.”
+A. How B. How much C. How many D. How often
+20. - Mom: “Don’t climb the apple tree over there!” -- Nam: “OK, I _____________ .”
+A. will B. can C. can’t D. won’t
+
+#### III. Read the text below and circle the correct answer.
+Helping people in need is a good thing to do. We can learn new things and (21) ___________ fun. Charities are (22) ___________ that help others. You can give your time, give money or give things that you have in order to help people. You can (23) ___________ some voluntary work such as visiting old people to talk to them or help them (24) ___________ the housework. You can also (25) ___________ your old toys and clothes to a charity that helps poor children or give your old books to a library.
+21. A. have B. make C. do D. get
+22. A. organizations B. activities C. people D. things
+23. A. work B. make C. do D. get
+24. A. doing B. do C. to doing D. did
+25. A. receive B. get C. donate D. have
+
+---
+
+### ĐỀ SỐ 3
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. bear /eə/ B. dear /ɪə/ C. hear /ɪə/ D. ear /ɪə/
+2. A. channel /tʃ/ B. chance /tʃ/ C. chemistry /k/ D. chalk /tʃ/
+3. A. monkey /ʌ/ B. both /əʊ/ C. none /ʌ/ D. money /ʌ/
+4. A. spell /e/ B. desk /e/ C. pencil /e/ D. basket /ɪ/
+5. A. bus /ʌ/ B. museum /ju:/ C. drugstore /ʌ/ D. funny /ʌ/
+
+#### II. Circle the word or phrase that best completes the sentence.
+6. ______________ place do you want to visit?
+A. Who B. How C. Which D. Where
+7. Where _______________ they last night?
+A. was B. are C. were D. did
+8. She is keen ______________ going to the party.
+A. on B. in C. of D. at
+9. This is his book and that is _______________ .
+A. my B. mine C. I D. your
+10. “_______________ does she go to the library? - Three times a week.”
+A. How long B. How C. How often D. How many
+11. There _______________ any oranges in the box.
+A. isn't B. aren't C. is D. are
+12. Can you ______________ me a short story?
+A. speak B. talk C. tell D. say
+13. He can speak French ______________.
+A. fluent B. fluency C. fluently D. good
+14. Ms. Hoa: “Thanks for your help!” -- Hung: “________________________”
+A. It's my pleasure. B. I'm pretty well, thank you.
+C. I think so. D. Can I help you?
+15. He can speak French _____________.
+A. fluent B. fluency C. fluently D. good
+
+#### III. Circle the word or phrase that needs correction then correct it.
+16. We are (A) worrying (B) about (C) our son (D).
+17. I would rather (A) you do not (B) talk (C) in (D) class.
+18. My two children are playing (A) soccer with their friends (B) every (C) afternoon (D).
+19. How much (A) tomatoes (B) does she (C) need (D)?
+20. The bank (A) is (B) at (C) your left (D).
+
+#### IV. Choose the correct option (A, B, C or D) to complete the following passage.
+Tony and his friends (21) ______________ have a trip to Vietnam next summer. At first, they are going to Hanoi (22) ______________ plane and they are going to stay there in two days. Then they are going to travel to Ha Long and Hue. They are going to visit a (23) ______________ of places of interest and some primary schools in Hanoi. They are going to (24) ______________ students in the schools practice speaking English. Finally, they are going to fly back to England (25) ______________ Hanoi.
+21. A. is going B. are to C. are going to D. had to
+22. A. to B. by C. with D. for
+23. A. many B. some C. few D. lot
+24. A. help B. visit C. ask D. go
+25. A. to B. from C. for D. on
+
+---
+
+### ĐỀ SỐ 4
+
+#### I. Circle the word which has the stress differently from that of the others.
+1. A. decision B. humorous C. intelligent D. December
+2. A. football B. healthy C. sister D. repair
+
+#### II. Circle the word which has the underlined part pronounced differently from the others.
+3. A. place B. cake C. advice D. take
+4. A. head B. hat C. hello D. hour
+5. A. goes B. washes C. teaches D. practices
+
+#### III. Circle the word or phrase that best completes the sentence.
+6. This school has more students ______________ my school.
+A. than B. as C. more D. so
+7. Nam is ______________. He can solve math problems quickly.
+A. friendly B. intelligent C. handsome D. kind
+8. Could you ______________ me how to get there?
+A. say B. ask C. tell D. speak
+9. ______________ lessons does Hoa have on Monday?
+A. How much B. How many C. How D. When
+10. There is ______________ milk in the fridge.
+A. many B. some C. any D. a
+11. They would like to become doctors and nurses when they ______________ up.
+A. grow B. grew C. are growing D. will grow
+12. I must stay at home and take care ______________ my little sister.
+A. in B. on C. of D. after
+13. My mother need ______________ eggs.
+A. half of dozen B. a half of dozen C. half dozen D. half a dozen
+14. I prefer listening to music ______________ reading books.
+A. than B. more than C. much than D. to
+15. “- ______________ ?” – “For five years.”
+A. How old is your uncle B. When did your uncle leave
+C. How long has your uncle lived here D. How is your uncle
+
+#### IV. Read the text and circle the best answer.
+(16) ___________ a list of your priorities and outline the tasks for the day. Write down you short and long-term goals and then (17) ___________ your progress. Always look (18) ___________ opportunities to broaden your skills. For example, you can attend professional development seminars. Create your own goals. Determine what skills you need to (19) ___________ that goal. Be clear about what you want. If you believe you deserve a promotion, ask for one. Take time off and relax. Doing things that make you (20) ___________ will help your performance at work.
+16. A. Make B. Take C. Do D. Talk
+17. A. have B. earn C. evaluate D. change
+18. A. in B. into C. for D. after
+19. A. work B. achieve C. take D. accept
+20. A. unhappy B. happiness C. happily D. happy
+
+#### V. Each of the following sentences has one mistake. Circle and correct the mistakes.
+21. My brother (A) drinks (B) a lot of (C) orange (D) juices every day.
+22. We (A) shouldn’t (B) drive (C) careless (D) at night.
+23. My (A) mother (B) cutted (C) herself (D) yesterday.
+24. There (A) are a big (B) bathroom and a modern (C) kitchen in (D) the house.
+25. I (A) have too (B) many homework (C) to do (D) this evening.
+
+---
+
+### ĐỀ SỐ 5
+
+#### I. Circle the word which has the underlined part pronounced differently from the others.
+1. A. earn /ɜː/ B. weather /e/ C. headache /e/ D. death /e/
+2. A. tables /z/ B. students /s/ C. pencils /z/ D. rulers /z/
+3. A. thin /θ/ B. then /ð/ C. thirty /θ/ D. thank /θ/
+
+#### II. Circle the word that has the stress differently from that of the others.
+4. A. friendly B. purple C. lion D. advice
+5. A. grandmother B. difficult C. customer D. computer
+
+#### III. Circle the word or phrase that best completes the sentence.
+6. He ___________ dressed at 6.30.
+A. have B. has C. get D. gets
+7. You should ___________ regular exercise to improve your health.
+A. have B. take C. get D. learn
+8. Would you like ___________ a cup of coffee?
+A. drink B. drinking C. drank D. to drink
+9. I am cleaning the floor. ___________ help me open the windows?
+A. Have you B. Can you C. Should you D. Do you
+10. ___________ a lovely dog!
+A. It B. What C. How D. Which
+11. My mother ___________ to Ho Chi Minh City last week.
+A. fly B. flies C. flew D. flown
+12. My sister lives in a flat ___________ the twenty-seventh floor of Tower Building.
+A. on B. in C. at D. by
+13. She ___________ these dishes.
+A. washed B. washing C. to wash D. washes
+14. - Na: “___________ ?” – Hoa: “She’s much better, thank you.”
+A. What does your daughter B. How's your daughter
+C. What's your daughter like D. What does your daughter do
+15. “- Thank you for your help! -- ___________ ”
+A. You're welcome B. Here you are C. OK. I will D. Sure
+
+#### IV. Choose the correct option to complete the passage.
+Teenagers can take part (16) ___________ various activities (17) ___________ community service (18) ___________ help people, animals and places (19) ___________ them. (20) ___________ instance, they can organize a fair. They can donate their old books, clothes and food (21) ___________ poor and disabled children. People can sell toys (22) ___________ fairs to raise money (23) ___________ charity. Besides, teens can recycle things like plastic bottles and old paper. They can also plant trees and flowers (24) ___________ the park. (25) ___________ order to help their community, students can clean their schools and the local streets.
+16. A. in B. on C. of D. at
+17. A. such B. like C. as D. same
+18. A. to B. for C. in D. so
+19. A. around B. about C. near D. close
+20. A. For B. At C. In D. On
+21. A. to B. for C. with D. of
+22. A. at B. in C. on D. from
+23. A. for B. of C. with D. to
+24. A. in B. on C. at D. from
+25. A. In B. On C. At C. For
+
+---
+---
+
+## ĐÁP ÁN CHI TIẾT (ANSWER KEY)
+
+### PHẦN I: BỘ ĐỀ ÔN LUYỆN
+* **TEST 1:** 1. B, 2. D, 3. B, 4. A, 5. C, 6. C, 7. B, 8. C, 9. B, 10. C, 11. A, 12. C, 13. B, 14. C, 15. D, 16. B, 17. A, 18. D, 19. D, 20. A, 21. D, 22. C, 23. D, 24. A, 25. B
+* **TEST 2:** 1. A, 2. A, 3. C, 4. D, 5. C, 6. B, 7. B, 8. A, 9. A, 10. B, 11. B, 12. B, 13. A, 14. B, 15. B, 16. A, 17. A, 18. B, 19. B, 20. D, 21. C, 22. B, 23. D, 24. B, 25. D
+* **TEST 3:** 1. C, 2. A, 3. A, 4. C, 5. D, 6. B, 7. C, 8. C, 9. C, 10. D, 11. B, 12. A, 13. C, 14. D, 15. A, 16. A, 17. D, 18. B, 19. C, 20. B, 21. C, 22. A, 23. B, 24. C, 25. A
+* **TEST 4:** 1. C, 2. B, 3. B, 4. D, 5. D, 6. C, 7. B, 8. A, 9. B, 10. C, 11. D, 12. A, 13. A, 14. A, 15. D, 21. C, 22. B, 23. A, 24. A, 25. B
+* **TEST 5:** 1. D, 2. B, 3. C, 4. C, 5. D, 6. A, 7. C, 8. A, 9. B, 10. A, 11. B, 12. B, 13. A, 14. A, 15. D, 16. C, 17. A, 18. B, 19. C, 20. D, 21. B, 22. D, 23. C, 24. D, 25. A
+
+### PHẦN II: CHINH PHỤC ĐỀ VÀO 6
+* **ĐỀ SỐ 1:** 1. C, 2. D, 3. A, 4. D, 5. D, 6. A, 7. A, 8. C, 9. B, 10. C, 11. A, 12. C, 13. B, 14. C, 15. D, 16. B, 17. A, 18. D, 19. D, 20. A, 21. A, 22. A, 23. A, 24. A, 25. A
+* **ĐỀ SỐ 2:** 1. D, 2. C, 3. D, 4. B, 5. A, 6. B, 7. B, 8. A, 9. A, 10. B, 11. B, 12. B, 13. A, 14. C, 15. B, 16. A, 17. A, 18. B, 19. B, 20. D, 21. A, 22. A, 23. C, 24. B, 25. C
+* **ĐỀ SỐ 3:** 1. A, 2. C, 3. B, 4. D, 5. B, 6. C, 7. C, 8. A, 9. B, 10. C, 11. B, 12. C, 13. C, 14. A, 15. C, 16. B, 17. B, 18. A, 19. A, 20. C, 21. C, 22. B, 23. D, 24. A, 25. B
+* **ĐỀ SỐ 4:** 1. B, 2. D, 3. C, 4. D, 5. A, 6. A, 7. B, 8. C, 9. B, 10. B, 11. A, 12. C, 13. D, 14. D, 15. C, 16. A, 17. C, 18. C, 19. B, 20. D, 21. D, 22. D, 23. C, 24. A, 25. B
+* **ĐỀ SỐ 5:** 1. A, 2. B, 3. B, 4. D, 5. D, 6. D, 7. B, 8. D, 9. B, 10. B, 11. C, 12. A, 13. A, 14. B, 15. A, 16. A, 17. B, 18. A, 19. A, 20. A, 21. A, 22. A, 23. A, 24. A, 25. A
+</script>
+
 <!-- =========================================================================
-     MÃ NGUỒN XỬ LÝ JAVASCRIPT
+     MÃ NGUỒN XỬ LÝ JAVASCRIPT & PARSER
      ========================================================================= -->
 <script>
 /* =========================================================================
    CẤU HÌNH LIÊN KẾT GOOGLE APPS SCRIPT:
    Hãy xóa chữ "DÁN_URL_CỦA_BẠN_VÀO_ĐÂY" và thay bằng URL của bạn (giữ lại dấu ngoặc kép).
    ========================================================================= */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwp5X1GVzpJqOmfDRXe4QjbJvv-yRr_mSWq1du25bRJA6xLpQ9Ipdt9KKmYYRJc3fxx/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby50wv3VwFZEne1CJtYWLfWiyXjEdOzYBcp2UfWMaHTR-yR0sof0hNUDgJjQLHNKTpE/exec";
 
-const baseQuestions = [
-  {
-    id: 1, section: "Pronunciation",
-    text: "1. Choose the word whose underlined part is pronounced differently: pens, books, rulers, pencils.",
-    type: "mcq", options: ["A. pens /z/", "B. books /s/", "C. rulers /z/", "D. pencils /z/"],
-    answer: "B. books /s/", cleanAnswer: "books",
-    theory: "Quy tắc phát âm đuôi '-s/-es': Phát âm là /s/ khi đứng sau âm vô thanh, các trường hợp khác phát âm /z/ hoặc /iz/.",
-    whyWrong: "Phải chú ý âm cuối của từ gốc trước khi thêm 's'. Chỉ có 'book' tận cùng bằng âm vô thanh /k/.",
-    whyRight: "Chính xác! 'books' kết thúc bằng âm /k/ nên đuôi 's' phát âm là /s/."
-  },
-  {
-    id: 2, section: "Pronunciation",
-    text: "2. Choose the word whose underlined part is pronounced differently: meat, seat, teach, wear.",
-    type: "mcq", options: ["A. meat /i:/", "B. seat /i:/", "C. teach /i:/", "D. wear /eə/"],
-    answer: "D. wear /eə/", cleanAnswer: "wear",
-    theory: "Phát âm nguyên âm đôi 'ea': Thường đọc là /i:/, nhưng có trường hợp ngoại lệ đọc là /eə/.",
-    whyWrong: "Chữ 'ea' trong từ chỉ trang phục ('wear') đọc là /eə/, khác với âm /i:/ của các từ còn lại.",
-    whyRight: "Chính xác! 'wear' có phần gạch chân phát âm là /eə/."
-  },
-  {
-    id: 3, section: "Pronunciation",
-    text: "3. Choose the word whose underlined part is pronounced differently: wanted, watched, needed, visited.",
-    type: "mcq", options: ["A. wanted /ɪd/", "B. watched /t/", "C. needed /ɪd/", "D. visited /ɪd/"],
-    answer: "B. watched /t/", cleanAnswer: "watched",
-    theory: "Quy tắc phát âm đuôi '-ed': Đọc là /ɪd/ sau t/d. Đọc là /t/ sau ch, s, x, sh, k, p, f.",
-    whyWrong: "Từ 'watch' kết thúc bằng âm /tʃ/ nên đuôi '-ed' phải đọc là /t/.",
-    whyRight: "Xuất sắc! 'watched' phát âm đuôi -ed là /t/."
-  },
-  {
-    id: 4, section: "Pronunciation",
-    text: "4. Choose the word whose underlined part is pronounced differently: thing, father, the, these.",
-    type: "mcq", options: ["A. thing /θ/", "B. father /ð/", "C. the /ð/", "D. these /ð/"],
-    answer: "A. thing /θ/", cleanAnswer: "thing",
-    theory: "Phân biệt âm 'th' vô thanh /θ/ và 'th' hữu thanh /ð/.",
-    whyWrong: "Chữ 'th' trong từ chỉ vật ('thing') là âm vô thanh /θ/, ba từ còn lại là hữu thanh /ð/.",
-    whyRight: "Đúng rồi! 'thing' phát âm là /θ/."
-  },
-  {
-    id: 5, section: "Odd One Out",
-    text: "5. Find the word which is not the same as the others in a group: worker, doctor, job, farmer.",
-    type: "mcq", options: ["A. worker", "B. doctor", "C. job", "D. farmer"],
-    answer: "C. job", cleanAnswer: "job",
-    theory: "Phân biệt từ loại: Danh từ chỉ người làm nghề cụ thể vs. Danh từ chung chỉ công việc.",
-    whyWrong: "3 từ đầu đều là từ chỉ người làm một nghề cụ thể, từ còn lại chỉ danh từ chung.",
-    whyRight: "Rất tốt! 'job' là danh từ chỉ chung công việc."
-  },
-  {
-    id: 6, section: "Grammar & Vocabulary",
-    text: "6. The bakery is _____________ of the pharmacy.",
-    type: "mcq", options: ["A. between", "B. to the left", "C. near to", "D. in front"],
-    answer: "B. to the left", cleanAnswer: "to the left",
-    theory: "Cụm từ chỉ vị trí phương hướng cần đi kèm với giới từ 'of' ở phía sau.",
-    whyWrong: "Các giới từ 'between', 'near' không đi liền với 'of'. Chỉ có cụm 'to the left of' là đúng cấu trúc.",
-    whyRight: "Chính xác! 'to the left of' nghĩa là ở bên trái của."
-  },
-  {
-    id: 7, section: "Grammar & Vocabulary",
-    text: "7. ______________ can I get there? - By train.",
-    type: "mcq", options: ["A. Where", "B. Who", "C. How", "D. How often"],
-    answer: "C. How", cleanAnswer: "How",
-    theory: "Câu trả lời là phương tiện giao thông ('By train') -> Cần từ hỏi về cách thức/phương tiện.",
-    whyWrong: "Hỏi về phương tiện đi lại bắt buộc dùng từ 'How'.",
-    whyRight: "Đúng rồi! Hỏi phương tiện dùng 'How'."
-  },
-  {
-    id: 8, section: "Grammar & Vocabulary",
-    text: "8. My brother often __________ TV after dinner.",
-    type: "mcq", options: ["A. watch", "B. watches", "C. watchs", "D. are watching"],
-    answer: "B. watches", cleanAnswer: "watches",
-    theory: "Thì Hiện tại đơn với trạng từ tần suất 'often': Chủ ngữ ngôi thứ 3 số ít ('My brother'). Động từ tận cùng bằng 'ch'.",
-    whyWrong: "Động từ 'watch' kết thúc bằng 'ch' nên khi đi với chủ ngữ số ít phải thêm '-es', không phải '-s'.",
-    whyRight: "Đúng! 'My brother' + 'watches'."
-  },
-  {
-    id: 9, section: "Grammar & Vocabulary",
-    text: "9. “What ___________ going to Hanoi tomorrow?”",
-    type: "mcq", options: ["A. at", "B. to", "C. about", "D. into"],
-    answer: "C. about", cleanAnswer: "about",
-    theory: "Cấu trúc đưa ra lời đề nghị/rủ rê: 'What about + V-ing?'",
-    whyWrong: "Từ để hỏi 'What' kết hợp với 'about' tạo thành câu đề nghị đi làm việc gì đó.",
-    whyRight: "Chính xác! 'What about going...?'"
-  },
-  {
-    id: 10, section: "Grammar & Vocabulary",
-    text: "10. Why don't we _____________ chess together?",
-    type: "mcq", options: ["A. play", "B. playing", "C. to play", "D. played"],
-    answer: "A. play", cleanAnswer: "play",
-    theory: "Cấu trúc lời rủ/đề nghị: 'Why don't we + V (nguyên mẫu)...?'",
-    whyWrong: "Sau cụm từ rủ rê 'Why don't we...' phải dùng động từ nguyên mẫu không 'to'.",
-    whyRight: "Đúng rồi! 'Why don't we' đi với động từ nguyên mẫu 'play'."
-  },
-  {
-    id: 11, section: "Grammar & Vocabulary",
-    text: "11. __________ summer, I often go swimming.",
-    type: "mcq", options: ["A. Of", "B. On", "C. In", "D. At"],
-    answer: "C. In", cleanAnswer: "In",
-    theory: "Giới từ chỉ thời gian đi với các mùa trong năm.",
-    whyWrong: "Trước các mùa trong năm ta phải sử dụng giới từ 'In'.",
-    whyRight: "Chính xác! Giới từ đi với mùa là 'In'."
-  },
-  {
-    id: 12, section: "Grammar & Vocabulary",
-    text: "12. “- Does Tom like __________ badminton? – No. He likes tennis.”",
-    type: "mcq", options: ["A. play", "B. to playing", "C. plays", "D. playing"],
-    answer: "D. playing", cleanAnswer: "playing",
-    theory: "Cấu trúc động từ chỉ sở thích lâu dài 'like'.",
-    whyWrong: "Sau động từ 'like' thể hiện sở thích thường xuyên ta dùng hình thức danh động từ V-ing.",
-    whyRight: "Tuyệt vời! 'like playing'."
-  },
-  {
-    id: 13, section: "Grammar & Vocabulary",
-    text: "13. “- Would you like __________ coffee? – Yes, please.”",
-    type: "mcq", options: ["A. any", "B. some", "C. a", "D. an"],
-    answer: "B. some", cleanAnswer: "some",
-    theory: "Dùng từ định lượng trong câu mời mọc/đề nghị lịch sự.",
-    whyWrong: "Dù là câu hỏi nhưng đây là lời mời lịch sự nên ta dùng 'some' chứ không dùng 'any'.",
-    whyRight: "Rất đúng! Lời mời dùng 'Would you like some...?'"
-  },
-  {
-    id: 14, section: "Grammar & Vocabulary",
-    text: "14. Mary and Tom __________ their homework now.",
-    type: "mcq", options: ["A. is doing", "B. do", "C. does", "D. are doing"],
-    answer: "D. are doing", cleanAnswer: "are doing",
-    theory: "Thì Hiện tại tiếp diễn với dấu hiệu nhận biết 'now'. Chủ ngữ số nhiều.",
-    whyWrong: "Dấu hiệu 'now' chỉ hành động đang diễn ra và chủ ngữ gồm 2 người ('Mary and Tom') là số nhiều nên chọn tobe 'are'.",
-    whyRight: "Chính xác! Chủ ngữ số nhiều đi với 'are doing'."
-  },
-  {
-    id: 15, section: "Grammar & Vocabulary",
-    text: "15. “ - __________?“ – “He is kind and handsome.”",
-    type: "mcq", options: ["A. How is your neighbor?", "B. What does your neighbor like?", "C. How old is your neighbor?", "D. What is your neighbor like?"],
-    answer: "D. What is your neighbor like?", cleanAnswer: "What is your neighbor like?",
-    theory: "Hỏi về tính cách/ngoại hình của ai đó.",
-    whyWrong: "Câu trả lời miêu tả tính cách nên phải dùng câu hỏi cấu trúc 'What is S like?'.",
-    whyRight: "Chính xác! Hỏi tính cách/vẻ ngoài dùng 'What is S like?'."
-  },
-  {
-    id: 16, section: "Grammar & Vocabulary",
-    text: "16. They often go to school _____________ foot.",
-    type: "mcq", options: ["A. in", "B. on", "C. by", "D. to"],
-    answer: "B. on", cleanAnswer: "on",
-    theory: "Cụm từ cố định chỉ việc đi bộ: 'on foot' (đi bộ).",
-    whyWrong: "Đi bộ luôn đi với giới từ 'on' ('on foot'), không dùng 'by'.",
-    whyRight: "Đúng rồi! Đi bộ là 'on foot'."
-  },
-  {
-    id: 17, section: "Grammar & Vocabulary",
-    text: "17. Last night I _____________ a lot of food, so I felt unwell.",
-    type: "mcq", options: ["A. ate", "B. eaten", "C. eat", "D. eats"],
-    answer: "A. ate", cleanAnswer: "ate",
-    theory: "Thì Quá khứ đơn với dấu hiệu thời gian trong quá khứ 'Last night'.",
-    whyWrong: "Có mốc thời gian quá khứ 'Last night' nên động từ 'eat' phải đổi thành dạng quá khứ cột 2 'ate'.",
-    whyRight: "Chính xác! Dạng quá khứ của 'eat' là 'ate'."
-  },
-  {
-    id: 18, section: "Grammar & Vocabulary",
-    text: "18. We _____________ dinner at present.",
-    type: "mcq", options: ["A. is having", "B. are having", "C. eat", "D. eats"],
-    answer: "B. are having", cleanAnswer: "are having",
-    theory: "Thì Hiện tại tiếp diễn với trạng từ chỉ thời gian 'at present'.",
-    whyWrong: "Trạng ngữ 'at present' yêu cầu dùng thì hiện tại tiếp diễn, chủ ngữ 'We' đi với tobe 'are'.",
-    whyRight: "Rất chuẩn! 'We' + 'are having'."
-  },
-  {
-    id: 19, section: "Grammar & Vocabulary",
-    text: "19. Nam would like _____________ a doctor when he grows up.",
-    type: "mcq", options: ["A. become", "B. to become", "C. be", "D. is"],
-    answer: "B. to become", cleanAnswer: "to become",
-    theory: "Cấu trúc thể hiện mong muốn: 'would like + to V' (muốn làm gì).",
-    whyWrong: "Sau cụm động từ 'would like' bắt buộc phải dùng động từ dạng nguyên mẫu có 'to' (to V).",
-    whyRight: "Chính xác! 'would like to become'."
-  },
-  {
-    id: 20, section: "Grammar & Vocabulary",
-    text: "20. Don’t play with a knife _____________ it is dangerous.",
-    type: "mcq", options: ["A. when", "B. because", "C. so", "D. that"],
-    answer: "B. because", cleanAnswer: "because",
-    theory: "Liên từ chỉ nguyên nhân.",
-    whyWrong: "Mệnh đề phía sau giải thích lý do nguy hiểm nên phải chọn liên từ chỉ nguyên nhân 'because'.",
-    whyRight: "Đúng rồi! Chỉ nguyên nhân dùng 'because'."
-  },
-  {
-    id: 21, section: "Grammar & Vocabulary",
-    text: "21. Going by plane is __________ than going by coach.",
-    type: "mcq", options: ["A. fast", "B. fastest", "C. more fastly", "D. faster"],
-    answer: "D. faster", cleanAnswer: "faster",
-    theory: "So sánh hơn của tính từ ngắn 1 âm tiết có liên từ 'than'.",
-    whyWrong: "'fast' là tính từ ngắn 1 âm tiết, dạng so sánh hơn là thêm đuôi '-er' thành 'faster'.",
-    whyRight: "Tuyệt vời! 'fast' ngắn -> 'faster'."
-  },
-  {
-    id: 22, section: "Error Correction",
-    text: "22. Identify the mistake: She (A) goes to (B) the library three time (C) a week (D).",
-    type: "mcq", options: ["A. goes to", "B. the library", "C. three time", "D. a week"],
-    answer: "C. three time", cleanAnswer: "three time",
-    theory: "Trạng từ chỉ tần suất số lần: Từ 3 lần trở lên phải dùng danh từ đếm được số nhiều.",
-    whyWrong: "Từ chỉ số lần từ 2 trở lên là danh từ đếm được số nhiều nên 'time' phải thêm 's' thành 'three times'.",
-    whyRight: "Đúng! Lỗi ở 'three time' (sửa thành 'three times')."
-  },
-  {
-    id: 23, section: "Grammar & Vocabulary",
-    text: "23. I think Da Nang city is__________ than Hue City.",
-    type: "mcq", options: ["A. exciting", "B. more exciting", "C. excited", "D. more excited"],
-    answer: "B. more exciting", cleanAnswer: "more exciting",
-    theory: "So sánh hơn tính từ dài chỉ tính chất vật/nơi chốn có 'than'.",
-    whyWrong: "Miêu tả thành phố dùng tính từ đuôi '-ing' (exciting), và vì có 'than' nên dùng 'more exciting'.",
-    whyRight: "Chính xác! 'more exciting than'."
-  },
-  {
-    id: 24, section: "Grammar & Vocabulary",
-    text: "24. Her birthday is _______________ Friday, August 20th.",
-    type: "mcq", options: ["A. in", "B. on", "C. from", "D. at"],
-    answer: "B. on", cleanAnswer: "on",
-    theory: "Giới từ chỉ thời gian đứng trước các ngày trong tuần hoặc ngày cụ thể.",
-    whyWrong: "Khi có ngày cụ thể hoặc thứ trong tuần ('Friday, August 20th') bắt buộc phải dùng giới từ 'on'.",
-    whyRight: "Chính xác! Ngày cụ thể dùng giới từ 'on'."
-  },
-  {
-    id: 25, section: "Error Correction",
-    text: "25. Identify the mistake: Do (A) you play (B) tennis with your friend last (C) weekend (D)?",
-    type: "mcq", options: ["A. Do", "B. play", "C. last", "D. weekend"],
-    answer: "A. Do", cleanAnswer: "Do",
-    theory: "Trợ động từ câu hỏi ở thì Quá khứ đơn.",
-    whyWrong: "Dấu hiệu thời gian quá khứ 'last weekend' yêu cầu câu hỏi phải dùng trợ động từ 'Did' chứ không dùng 'Do'.",
-    whyRight: "Đúng rồi! Cần sửa 'Do' thành 'Did'."
-  }
-];
-
-// Khởi tạo bộ 250 câu hỏi (10 Đề, mỗi đề 25 câu)
-const all250Questions = [];
-for (let i = 1; i <= 10; i++) {
-  baseQuestions.forEach((q, index) => {
-    const newGlobalIndex = (i - 1) * 25 + index + 1;
-    const newText = q.text.replace(/^\d+\./, `${newGlobalIndex}.`);
+function parseMD() {
+    const rawElement = document.getElementById("raw-markdown-data");
+    if (!rawElement) return [];
     
-    all250Questions.push({
-      ...q,
-      id: newGlobalIndex,
-      section: `Đề Thi Số ${i} - ${q.section}`,
-      text: newText
+    const rawData = rawElement.textContent || rawElement.innerHTML;
+    const lines = rawData.split('\n');
+    let questions = [];
+    let currentTest = "";
+    let currentTestName = "";
+    let q = null;
+    let answerKeys = {};
+    
+    // 1. Quét tìm đáp án
+    const ansIndex = rawData.indexOf("## ĐÁP ÁN CHI TIẾT");
+    if (ansIndex > -1) {
+        const ansLines = rawData.substring(ansIndex).split('\n');
+        let ansPart = "P1_";
+        for (let line of ansLines) {
+            if (line.includes("PHẦN II")) ansPart = "P2_";
+            let tMatch = line.match(/\*\s*\*\*(TEST \d+|ĐỀ SỐ \d+):\*\*(.*)/);
+            if (tMatch) {
+                let tKey = tMatch[1].replace("ĐỀ SỐ", "TEST").replace(/\s+/g, ""); 
+                let r = /(\d+)\.\s*([A-D])/g;
+                let m;
+                while ((m = r.exec(tMatch[2])) !== null) {
+                    answerKeys[ansPart + tKey + "_" + m[1]] = m[2];
+                }
+            }
+        }
+    }
+
+    // 2. Quét tìm nội dung câu hỏi
+    let partPrefix = "P1_";
+    let readingContext = "";
+    let sectionName = "";
+
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (!line) continue;
+        if (line.includes("PHẦN II:")) { partPrefix = "P2_"; readingContext = ""; }
+        if (line.includes("ĐÁP ÁN CHI TIẾT")) break;
+
+        let tMatch = line.match(/^###\s+(TEST\s+\d+|ĐỀ SỐ\s+\d+)/);
+        if (tMatch) {
+            currentTest = tMatch[1].replace("ĐỀ SỐ", "TEST").replace(/\s+/g, ""); 
+            currentTestName = tMatch[1];
+            readingContext = ""; 
+            continue;
+        }
+
+        let secMatch = line.match(/^####\s+(.*)/);
+        if (secMatch) {
+            sectionName = secMatch[1];
+            readingContext = ""; 
+            continue;
+        }
+
+        let qMatch = line.match(/^(\d+)\.\s+(.*)/);
+        if (qMatch && currentTest) {
+            if (q) questions.push(q);
+            q = {
+                id: partPrefix + currentTest + "_" + qMatch[1],
+                test: partPrefix === "P1_" ? `Phần I - ${currentTestName}` : `Phần II - ${currentTestName}`,
+                num: parseInt(qMatch[1]),
+                text: line,
+                options: [],
+                answerKey: answerKeys[partPrefix + currentTest + "_" + qMatch[1]],
+                section: sectionName,
+                context: readingContext
+            };
+
+            q.text = q.text.replace(/\(Note:.*?\)/g, "").trim();
+
+            let optMatch = line.match(/(A\..+?)\s+(B\..+?)\s+(C\..+?)\s+(D\..+|$)/);
+            if (optMatch && !line.includes("(A)")) {
+                q.text = line.substring(0, line.indexOf("A.")).trim();
+                q.options = [optMatch[1].trim(), optMatch[2].trim(), optMatch[3].trim(), optMatch[4].trim()];
+            }
+        } 
+        else if (q && line.match(/^[A-D]\./)) {
+            let opts = line.split(/(?=[A-D]\.)/);
+            opts.forEach(o => { if(o.trim()) q.options.push(o.trim()); });
+        } 
+        else if (q && q.options.length === 0 && !line.match(/^[A-D]\./)) {
+            q.text += "<br>" + line;
+        }
+        else if (!qMatch && !line.match(/^[A-D]\./) && currentTest) {
+            if (line.length > 30) {
+                 readingContext += line + "<br><br>";
+            }
+        }
+    }
+    if (q) questions.push(q);
+
+    // 3. Hoàn thiện cấu trúc câu hỏi
+    questions.forEach((quest, idx) => {
+        let key = quest.answerKey;
+        if(key) {
+            let correctOpt = quest.options.find(o => o.startsWith(key + "."));
+            quest.answer = correctOpt || key;
+        } else {
+            quest.answer = key || "N/A";
+        }
+        
+        if (quest.options.length === 0) {
+            quest.options = ["A", "B", "C", "D"]; 
+        }
+        if(quest.options[0] === "A" && key) {
+            quest.answer = key;
+        }
+        quest.globalId = idx + 1;
     });
-  });
+
+    return questions;
 }
 
-let studentName = "";
+function getHintForSection(section) {
+    if(section.includes("pronounced differently")) return "Hãy nhẩm đọc to các từ và chú ý vào phần gạch chân. Nhớ lại các quy tắc phát âm đuôi -s/es, đuôi -ed, hoặc các nguyên âm tiếng Anh cơ bản.";
+    if(section.includes("stress differently")) return "Đọc nhẩm từng từ và xác định trọng âm rơi vào âm tiết thứ mấy. Chú ý các tiền tố, hậu tố không bao giờ nhận trọng âm.";
+    if(section.includes("not the same")) return "Phân loại các từ theo từ loại (Danh từ, Động từ, Tính từ...) hoặc theo nhóm nghĩa. Từ nào lạc loài là đáp án.";
+    if(section.includes("best completes")) return "Đọc kỹ câu để xác định thì của động từ, cấu trúc ngữ pháp (ví dụ: so sánh, giới từ) hoặc từ vựng phù hợp với ngữ cảnh cụ thể.";
+    if(section.includes("complete the following text") || section.includes("complete the passage")) return "Đọc lướt cả đoạn văn để nắm ý chính. Chú ý các từ đứng ngay trước và sau chỗ trống để chọn từ loại hoặc giới từ phù hợp.";
+    if(section.includes("mistake")) return "Kiểm tra kỹ sự hòa hợp giữa chủ ngữ và động từ, thì của câu, cách dùng giới từ và dạng của động từ (V-ing, to V).";
+    return "Hãy đọc kỹ đề bài, phân tích từng lựa chọn và loại trừ các đáp án sai rõ ràng trước khi đưa ra quyết định cuối cùng.";
+}
+
+let allQuestions = [];
 let currentActiveQuestions = [];
+let currentTestName = "Chưa xác định";
+let studentName = "";
 let currentIndex = 0;
 let answeredCorrectly = new Set();
 let firstTryWrong = new Set();
 let studentAnswers = {}; 
 let selectedOption = null;
 
+// Cực kỳ quan trọng: Khởi tạo dữ liệu bên trong window.onload để tránh lỗi "Something went wrong" do DOM chưa sẵn sàng.
+window.onload = function() {
+    try {
+        allQuestions = parseMD();
+        
+        // Ẩn màn hình loading, hiện giao diện điền thông tin
+        document.getElementById("startCardContent").innerHTML = `
+            <div class="mascot-icon">📚</div>
+            <h2>Bắt Đầu Bài Thi Ôn Luyện</h2>
+            <p>Kho dữ liệu: <strong>${allQuestions.length} Câu Hỏi</strong> ôn tập toàn diện</p>
+            <div class="input-field">
+              <label for="studentNameInput">Họ và Tên Học Sinh:</label>
+              <input type="text" id="studentNameInput" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off">
+            </div>
+            
+            <div class="input-field">
+              <label for="testSelector">Chọn Bộ Đề Cần Làm:</label>
+              <select id="testSelector"></select>
+            </div>
+
+            <button class="btn-main" onclick="startApp()">
+              Vào Làm Bài Ngay ⚡
+            </button>
+        `;
+
+        const tests = [...new Set(allQuestions.map(q => q.test))];
+        const testSelector = document.getElementById("testSelector");
+        
+        tests.forEach((t) => {
+            let opt = document.createElement("option");
+            opt.value = t;
+            opt.textContent = `📝 ${t} (25 Câu)`;
+            testSelector.appendChild(opt);
+        });
+        
+        let optRand = document.createElement("option");
+        optRand.value = "random"; optRand.textContent = "🎲 Đề Kiểm Tra Ngẫu Nhiên (25 Câu)";
+        testSelector.appendChild(optRand);
+
+        let optAll = document.createElement("option");
+        optAll.value = "all"; optAll.textContent = `🔥 Thử Thách Cực Đại: Toàn bộ ${allQuestions.length} Câu`;
+        testSelector.appendChild(optAll);
+        
+    } catch (err) {
+        console.error("Lỗi khởi tạo dữ liệu:", err);
+        document.getElementById("startCardContent").innerHTML = `<h2 style="color:red">Lỗi tải dữ liệu. Vui lòng tải lại trang!</h2>`;
+    }
+};
+
 function startApp() {
   const input = document.getElementById("studentNameInput");
   const name = input.value.trim();
-  if (!name) {
-    alert("Vui lòng nhập Họ và Tên học sinh trước khi bắt đầu làm bài!");
-    input.focus();
-    return;
-  }
+  if (!name) { alert("Vui lòng nhập tên của học sinh để bắt đầu!"); input.focus(); return; }
   
   const testMode = document.getElementById("testSelector").value;
   if (testMode === "all") {
-    currentActiveQuestions = [...all250Questions];
+      currentActiveQuestions = [...allQuestions];
+      currentTestName = "Toàn bộ " + allQuestions.length + " Câu";
   } else if (testMode === "random") {
-    const shuffled = [...all250Questions].sort(() => 0.5 - Math.random());
-    currentActiveQuestions = shuffled.slice(0, 25);
+      const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+      currentActiveQuestions = shuffled.slice(0, 25);
+      currentTestName = "Đề Ngẫu Nhiên (25 Câu)";
   } else {
-    const testNum = parseInt(testMode.replace("test", ""));
-    const startIdx = (testNum - 1) * 25;
-    currentActiveQuestions = all250Questions.slice(startIdx, startIdx + 25);
+      currentActiveQuestions = allQuestions.filter(q => q.test === testMode);
+      currentTestName = testMode;
   }
 
   studentName = name;
@@ -1019,18 +1054,24 @@ function updateProgress() {
   }
 }
 
-function jumpToQuestion(index) {
-  loadQuestion(parseInt(index));
-}
+function jumpToQuestion(index) { loadQuestion(parseInt(index)); }
 
 function loadQuestion(idx) {
   currentIndex = idx;
   selectedOption = null;
   const q = currentActiveQuestions[idx];
 
-  document.getElementById("exerciseBadge").innerText = q.section;
+  document.getElementById("exerciseBadge").innerText = q.test + (q.section ? ` - ${q.section}` : "");
+  
+  if(q.context) {
+      document.getElementById("readingPassageContainer").style.display = "block";
+      document.getElementById("readingPassageContainer").innerHTML = q.context;
+  } else {
+      document.getElementById("readingPassageContainer").style.display = "none";
+  }
+
   document.getElementById("questionTitle").innerHTML = q.text;
-  document.getElementById("theoryContent").innerHTML = q.theory;
+  document.getElementById("theoryContent").innerText = getHintForSection(q.section || "");
 
   const area = document.getElementById("interactionArea");
   area.innerHTML = "";
@@ -1044,13 +1085,17 @@ function loadQuestion(idx) {
     
     const keySpan = document.createElement("span");
     keySpan.className = "option-key";
-    keySpan.innerText = opt.charAt(0);
-
-    const textSpan = document.createElement("span");
-    textSpan.innerText = opt.length > 2 && opt.charAt(1) === '.' ? opt.substring(3) : opt;
-
-    item.appendChild(keySpan);
-    item.appendChild(textSpan);
+    
+    if(opt.length <= 2) {
+        keySpan.innerText = opt;
+        item.appendChild(keySpan);
+    } else {
+        keySpan.innerText = opt.charAt(0);
+        const textSpan = document.createElement("span");
+        textSpan.innerText = opt.length > 2 && opt.charAt(1) === '.' ? opt.substring(3).trim() : opt;
+        item.appendChild(keySpan);
+        item.appendChild(textSpan);
+    }
 
     item.onclick = () => {
       document.querySelectorAll(".option-item").forEach(el => el.classList.remove("selected"));
@@ -1087,7 +1132,7 @@ function checkCurrentAnswer() {
 
   let isCorrect = false;
   const normUser = normalizeStr(userAns);
-  const normTarget = normalizeStr(q.cleanAnswer || q.answer);
+  const normTarget = normalizeStr(q.answer);
 
   if (userAns === q.answer || normUser === normTarget || normUser.includes(normTarget)) {
     isCorrect = true;
@@ -1099,7 +1144,7 @@ function checkCurrentAnswer() {
     document.getElementById("successModal").classList.add("show");
   } else {
     firstTryWrong.add(currentIndex);
-    document.getElementById("errorDesc").innerHTML = `<strong>Lựa chọn của bạn:</strong> <span style="color: var(--error);">${userAns}</span> chưa chính xác.<br><br>Hãy suy nghĩ kỹ hơn nhé!`;
+    document.getElementById("errorDesc").innerHTML = `<strong>Lựa chọn của bạn:</strong> <span style="color: var(--error);">${userAns}</span> chưa chính xác.<br><br>Hãy suy nghĩ kỹ và chọn lại nhé!`;
     document.getElementById("errorModal").classList.add("show");
   }
 
@@ -1124,15 +1169,8 @@ function closeSuccessAndProceed() {
   }
 }
 
-function closeErrorAndRetry() {
-  document.getElementById("errorModal").classList.remove("show");
-}
-
-function navigatePrev() {
-  if (currentIndex > 0) {
-    loadQuestion(currentIndex - 1);
-  }
-}
+function closeErrorAndRetry() { document.getElementById("errorModal").classList.remove("show"); }
+function navigatePrev() { if (currentIndex > 0) loadQuestion(currentIndex - 1); }
 
 function showReportScreen() {
   showScreen("screen-report");
@@ -1144,8 +1182,8 @@ function showReportScreen() {
   const firstCorrectCount = total - wrongCount;
 
   const now = new Date();
-  const dateStr = now.toLocaleDateString('vi-VN') + " " + now.toLocaleTimeString('vi-VN');
-  document.getElementById("reportTimestamp").innerText = `Thời gian hoàn thành: ${dateStr}`;
+  const dateStr = now.toLocaleTimeString('vi-VN') + " - " + now.toLocaleDateString('vi-VN');
+  document.getElementById("reportTimestamp").innerText = `Đề: ${currentTestName} | Hoàn thành lúc: ${dateStr}`;
 
   document.getElementById("statTotal").innerText = total;
   document.getElementById("statFirstCorrect").innerText = firstCorrectCount;
@@ -1153,7 +1191,6 @@ function showReportScreen() {
 
   const tbody = document.getElementById("reportBody");
   tbody.innerHTML = "";
-
   const wrongDetailsList = [];
 
   currentActiveQuestions.forEach((q, idx) => {
@@ -1179,33 +1216,26 @@ function showReportScreen() {
     tbody.appendChild(tr);
   });
 
-  // Đồng bộ lên Google Sheet
-  if (typeof APPS_SCRIPT_URL !== 'undefined' && APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes("DÁN_URL")) {
-    const syncMsg = document.getElementById("syncMsg");
-    if (syncMsg) syncMsg.innerText = "⏳ Đang gửi kết quả về Google Sheets...";
+  const syncMsg = document.getElementById("syncMsg");
+  if (syncMsg) syncMsg.innerText = "⏳ Đang gửi kết quả về máy chủ...";
 
-    const payload = {
-      studentName: studentName,
-      totalQuestions: total,
-      firstCorrectCount: firstCorrectCount,
-      wrongCount: wrongCount,
-      wrongDetails: wrongDetailsList
-    };
+  const payload = {
+    studentName: studentName,
+    testName: currentTestName,
+    totalQuestions: total,
+    firstCorrectCount: firstCorrectCount,
+    wrongCount: wrongCount,
+    wrongDetails: wrongDetailsList
+  };
 
-    fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    })
-    .then(() => {
-      if (syncMsg) syncMsg.innerText = "✅ Đã lưu kết quả thành công vào Google Sheets!";
-    })
-    .catch(err => {
-      console.error("Lỗi gửi kết quả:", err);
-      if (syncMsg) syncMsg.innerText = "⚠️ Chưa thể lưu lên Google Sheets (vui lòng kiểm tra lại URL).";
-    });
-  }
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  })
+  .then(() => { if (syncMsg) syncMsg.innerText = "✅ Đã lưu kết quả thành công vào Google Sheets!"; })
+  .catch(err => { if (syncMsg) syncMsg.innerText = "⚠️ Chưa thể lưu lên hệ thống."; });
 }
 
 function exportToPDF() {
@@ -1219,7 +1249,8 @@ function exportToPDF() {
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
   };
-  
+
+  opt.html2canvas.scale = currentActiveQuestions.length <= 25 ? 2 : 1;
   html2pdf().set(opt).from(element).save();
 }
 
@@ -1230,6 +1261,33 @@ function restartApp() {
   currentIndex = 0;
   selectedOption = null;
   document.getElementById("btnFinish").style.display = "none";
+  
+  // Trở về Loading state trước khi DOM reset lại
+  document.getElementById("startCardContent").innerHTML = `
+        <div class="mascot-icon">📚</div>
+        <h2>Bắt Đầu Bài Thi Ôn Luyện</h2>
+        <p>Kho dữ liệu: <strong>${allQuestions.length} Câu Hỏi</strong> ôn tập toàn diện</p>
+        <div class="input-field">
+          <label for="studentNameInput">Họ và Tên Học Sinh:</label>
+          <input type="text" id="studentNameInput" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off">
+        </div>
+        <div class="input-field">
+          <label for="testSelector">Chọn Bộ Đề Cần Làm:</label>
+          <select id="testSelector"></select>
+        </div>
+        <button class="btn-main" onclick="startApp()">Vào Làm Bài Ngay ⚡</button>
+  `;
+  
+  const tests = [...new Set(allQuestions.map(q => q.test))];
+  const testSelector = document.getElementById("testSelector");
+  tests.forEach((t) => {
+      let opt = document.createElement("option");
+      opt.value = t; opt.textContent = `📝 ${t} (25 Câu)`;
+      testSelector.appendChild(opt);
+  });
+  let optRand = document.createElement("option"); optRand.value = "random"; optRand.textContent = "🎲 Đề Kiểm Tra Ngẫu Nhiên (25 Câu)"; testSelector.appendChild(optRand);
+  let optAll = document.createElement("option"); optAll.value = "all"; optAll.textContent = `🔥 Thử Thách Cực Đại: Toàn bộ ${allQuestions.length} Câu`; testSelector.appendChild(optAll);
+
   showScreen("screen-start");
 }
 </script>
